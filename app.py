@@ -1,11 +1,10 @@
+
 import streamlit as st
 import google.generativeai as genai
 import os
-import PyPDF2 as pdf
+import fitz  # PyMuPDF
 from dotenv import load_dotenv
 load_dotenv()
-
-import google.generativeai as genai
 
 os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
@@ -46,15 +45,10 @@ if uploaded_file is not None:
     st.write("PDF Uploaded Successfully")
 
 submit1 = st.button("Tell Me About the Resume")
-
 submit2 = st.button("How Can I Improvise my Skills")
-
 submit3 = st.button("What are the Keywords That are Missing")
-
 submit4 = st.button("Percentage match")
-
 input_promp = st.text_input("Queries: Feel Free to Ask here")
-
 submit5 = st.button("Answer My Query")
 
 input_prompt1 = """
@@ -85,7 +79,7 @@ the job description. First the output should come as percentage and then keyword
 if submit1:
     if uploaded_file is not None:
         pdf_content = input_pdf_setup(uploaded_file)
-        response = get_gemini_response(input_prompt1, pdf_content, input_text)
+        response = get_gemini_response(input_text, pdf_content, input_prompt1)
         st.subheader("The Response is")
         st.write(response)
     else:
@@ -94,7 +88,7 @@ if submit1:
 elif submit2:
     if uploaded_file is not None:
         pdf_content = input_pdf_setup(uploaded_file)
-        response = get_gemini_response(input_prompt2, pdf_content, input_text)
+        response = get_gemini_response(input_text, pdf_content, input_prompt2)
         st.subheader("The Response is")
         st.write(response)
     else:
@@ -103,7 +97,7 @@ elif submit2:
 elif submit3:
     if uploaded_file is not None:
         pdf_content = input_pdf_setup(uploaded_file)
-        response = get_gemini_response(input_prompt3, pdf_content, input_text)
+        response = get_gemini_response(input_text, pdf_content, input_prompt3)
         st.subheader("The Response is")
         st.write(response)
     else:
@@ -112,7 +106,7 @@ elif submit3:
 elif submit4:
     if uploaded_file is not None:
         pdf_content = input_pdf_setup(uploaded_file)
-        response = get_gemini_response(input_prompt4, pdf_content, input_text)
+        response = get_gemini_response(input_text, pdf_content, input_prompt4)
         st.subheader("The Response is")
         st.write(response)
     else:
@@ -121,9 +115,8 @@ elif submit4:
 elif submit5:
     if uploaded_file is not None:
         pdf_content = input_pdf_setup(uploaded_file)
-        response = get_gemini_response(input_promp, pdf_content, input_text)
+        response = get_gemini_response(input_text, pdf_content, input_promp)
         st.subheader("The Response is")
         st.write(response)
     else:
         st.write("Please upload a PDF file to proceed.")
-
