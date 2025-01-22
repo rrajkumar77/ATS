@@ -1,69 +1,141 @@
-import streamlit as st
-import google.generativeai as genai
-import os
-import PyPDF2 as pdf
+pip install python-dotenv
+pip install streamlit
+pip install pdf2image
+apt-get install poppler-utils
+pip install pymupdf
+
+
+
 from dotenv import load_dotenv
+
 load_dotenv()
 
+import streamlit as st
+import os
+from PIL import Image
+import io
+import pdf2image
+import base64
+import fitz
 
+import google.generativeai as genai
+
+os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-
-#gemini function
-
-def get_gemini_response(input):
-    model=genai.GenerativeModel('gemini-pro')
-    response = model.generate_content(input)
+def get_gemini_response(input, pdf_content, prompt):
+    model = genai.GenerativeModel('gemini-pro')
+    response = model.generate_content([input, pdf_content, prompt])
     return response.text
 
-#convert pdf to text
-def input_file_text(uploaded_file, file_type):
-    text = ""
-    
-    if file_type == 'pdf':
-        reader = pdf.PdfReader(uploaded_file)
-        for page in range(len(reader.pages)):
-            page = reader.pages[page]
-            text += str(page.extract_text())
-    
-    '''elif file_type == 'docx':
-        doc = docx.Document(uploaded_file)
-        for para in doc.paragraphs:
-            text += para.text + "\n"    '''
-    return text
+def input_pdf_setup(uploaded_file):
+    if uploaded_file is not None:
+        # Read the PDF file
+        document = fitz.open(stream=uploaded_file.read(), filetype="pdf")
+        # Initialize a list to hold the text of each page
+        text_parts = []
 
-input_prompt ="""
+        # Iterate over the pages of the PDF to extract the text
+        for page in document:
+            text_parts.append(page.get_text())
 
-### As a skilled Application Tracking System (ATS) with advanced knowledge in technology and data science, your role is to meticulously evaluate a candidate's resume based on the provided job description. 
+        # Concatenate the list into a single string with a space in between each part
+        pdf_text_content = " ".join(text_parts)
+        return pdf_text_content
+    else:
+        raise FileNotFoundError("No file uploaded")
 
-### Your evaluation will involve analyzing the resume for relevant skills, experiences, and qualifications that align with the job requirements. Look for key buzzwords and specific criteria outlined in the job description to determine the candidate's suitability for the position.
+## Streamlit App
 
-### Provide a detailed assessment of how well the resume matches the job requirements, highlighting strengths, weaknesses, and any potential areas of concern. Offer constructive feedback on how the candidate can enhance their resume to better align with the job description and improve their chances of securing the position.
+st.set_page_config(page_title="Resume Expert")
 
-### Your evaluation should be thorough, precise, and objective, ensuring that the most qualified candidates are accurately identified based on their resume content in relation to the job criteria.
+st.header("JobFit Analyzer")
+st.subheader('This Application helps you in your Resume Review with help of GEMINI AI [LLM]')
+input_text = st.text_input("Job Description: ", key="input")
+uploaded_file = st.file_uploader("Upload your Resume(PDF)...", type=["pdf"])
+pdf_content = ""
 
-### Remember to utilize your expertise in technology and data science to conduct a comprehensive evaluation that optimizes the recruitment process for the hiring company. Your insights will play a crucial role in determining the candidate's compatibility with the job role.
-resume={text}
-jd={jd}
-### Evaluation Output:
-1. Calculate the percentage of match between the resume and the job description. Give a number and some explanation
-2. Identify any key keywords that are missing from the resume in comparison to the job description.
-3. Offer specific and actionable tips to enhance the resume and improve its alignment with the job requirements.
+if uploaded_file is not None:
+    st.write("PDF Uploaded Successfully")
+
+submit1 = st.button("Tell Me About the Resume")
+
+submit2 = st.button("How Can I Improvise my Skills")
+
+submit3 = st.button("What are the Keywords That are Missing")
+
+submit4 = st.button("Percentage match")
+
+input_promp = st.text_input("Queries: Feel Free to Ask here")
+
+submit5 = st.button("Answer My Query")
+
+input_prompt1 = """
+ You are an experienced Technical Human Resource Manager,your task is to review the provided resume against the job description. 
+  Please share your professional evaluation on whether the candidate's profile aligns with the role. 
+ Highlight the strengths and weaknesses of the applicant in relation to the specified job requirements.
 """
 
-##stramlit
+input_prompt2 = """
+You are an Technical Human Resource Manager with expertise in data science, 
+your role is to scrutinize the resume in light of the job description provided. 
+Share your insights on the candidate's suitability for the role from an HR perspective. 
+Additionally, offer advice on enhancing the candidate's skills and identify areas where improvement is needed.
+"""
 
-st.title("Raj Smart ATS")
-st.text("Imporve your ATS resume score Match")
-jd = st.text_area("Paste job description here")
-uploaded_file= st.file_uploader("Upload your resume", type="pdf", help= "Please upload the pdf")
-# uploaded_file = st.file_uploader("Upload your resume", type=["pdf", "docx"], help="Please upload a PDF or DOCX file")
+input_prompt3 = """
+You are an skilled ATS (Applicant Tracking System) scanner with a deep understanding of data science and ATS functionality, 
+your task is to evaluate the resume against the provided job description. As a Human Resource manager,
+ assess the compatibility of the resume with the role. Give me what are the keywords that are missing
+ Also, provide recommendations for enhancing the candidate's skills and identify which areas require further development.
+"""
+input_prompt4 = """
+You are an skilled ATS (Applicant Tracking System) scanner with a deep understanding of data science and ATS functionality, 
+your task is to evaluate the resume against the provided job description. give me the percentage of match if the resume matches
+the job description. First the output should come as percentage and then keywords missing and last final thoughts.
+"""
 
-submit =  st.button('Check Your Score')
-if submit:
+if submit1:
     if uploaded_file is not None:
-        text =  input_pdf_text(uploaded_file)
-        response=get_gemini_response(input_prompt.format(text=text, jd=jd))
-        st.subheader(response)
+        pdf_content = input_pdf_setup(uploaded_file)
+        response = get_gemini_response(input_prompt1, pdf_content, input_text)
+        st.subheader("The Response is")
+        st.write(response)
+    else:
+        st.write("Please upload a PDF file to proceed.")
 
-   
+elif submit2:
+    if uploaded_file is not None:
+        pdf_content = input_pdf_setup(uploaded_file)
+        response = get_gemini_response(input_prompt2, pdf_content, input_text)
+        st.subheader("The Response is")
+        st.write(response)
+    else:
+        st.write("Please upload a PDF file to proceed.")
+
+elif submit3:
+    if uploaded_file is not None:
+        pdf_content = input_pdf_setup(uploaded_file)
+        response = get_gemini_response(input_prompt3, pdf_content, input_text)
+        st.subheader("The Response is")
+        st.write(response)
+    else:
+        st.write("Please upload a PDF file to proceed.")
+
+elif submit4:
+    if uploaded_file is not None:
+        pdf_content = input_pdf_setup(uploaded_file)
+        response = get_gemini_response(input_prompt4, pdf_content, input_text)
+        st.subheader("The Response is")
+        st.write(response)
+    else:
+        st.write("Please upload a PDF file to proceed.")
+
+elif submit5:
+    if uploaded_file is not None:
+        pdf_content = input_pdf_setup(uploaded_file)
+        response = get_gemini_response(input_promp, pdf_content, input_text)
+        st.subheader("The Response is")
+        st.write(response)
+    else:
+        st.write("Please upload a PDF file to proceed.")
