@@ -1,22 +1,9 @@
-pip install python-dotenv
-pip install streamlit
-pip install pdf2image
-apt-get install poppler-utils
-pip install pymupdf
-
-
-
-from dotenv import load_dotenv
-
-load_dotenv()
-
 import streamlit as st
+import google.generativeai as genai
 import os
-from PIL import Image
-import io
-import pdf2image
-import base64
-import fitz
+import PyPDF2 as pdf
+from dotenv import load_dotenv
+load_dotenv()
 
 import google.generativeai as genai
 
