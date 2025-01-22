@@ -26,10 +26,10 @@ def input_file_text(uploaded_file, file_type):
             page = reader.pages[page]
             text += str(page.extract_text())
     
-    elif file_type == 'docx':
+    '''elif file_type == 'docx':
         doc = docx.Document(uploaded_file)
         for para in doc.paragraphs:
-            text += para.text + "\n"    
+            text += para.text + "\n"    '''
     return text
 
 input_prompt ="""
@@ -56,8 +56,8 @@ jd={jd}
 st.title("Raj Smart ATS")
 st.text("Imporve your ATS resume score Match")
 jd = st.text_area("Paste job description here")
-# uploaded_file= st.file_uploader("Upload your resume", type="pdf", help= "Please upload the pdf")
-uploaded_file = st.file_uploader("Upload your resume", type=["pdf", "docx"], help="Please upload a PDF or DOCX file")
+uploaded_file= st.file_uploader("Upload your resume", type="pdf", help= "Please upload the pdf")
+# uploaded_file = st.file_uploader("Upload your resume", type=["pdf", "docx"], help="Please upload a PDF or DOCX file")
 
 submit =  st.button('Check Your Score')
 if submit:
