@@ -46,7 +46,7 @@ jd={jd}
 
 ##stramlit
 
-st.title("DDS Smart ATS")
+st.title("Raj Smart ATS")
 st.text("Imporve your ATS resume score Match")
 jd = st.text_area("Paste job description here")
 uploaded_file= st.file_uploader("Upload your resume", type="pdf", help= "Please upload the pdf")
