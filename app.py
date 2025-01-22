@@ -4,6 +4,7 @@ import os
 import PyPDF2 as pdf
 from dotenv import load_dotenv
 load_dotenv()
+import docx
 
 
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
@@ -17,12 +18,19 @@ def get_gemini_response(input):
     return response.text
 
 #convert pdf to text
-def input_pdf_text(uploaded_file):
-    reader=pdf.PdfReader(uploaded_file)
-    text=""
-    for page in range(len(reader.pages)):
-        page=reader.pages[page]
-        text+=str(page.extract_text())
+def input_file_text(uploaded_file, file_type):
+    text = ""
+    
+    if file_type == 'pdf':
+        reader = pdf.PdfReader(uploaded_file)
+        for page in range(len(reader.pages)):
+            page = reader.pages[page]
+            text += str(page.extract_text())
+    
+    elif file_type == 'docx':
+        doc = docx.Document(uploaded_file)
+        for para in doc.paragraphs:
+            text += para.text + "\n"    
     return text
 
 input_prompt ="""
@@ -39,7 +47,7 @@ input_prompt ="""
 resume={text}
 jd={jd}
 ### Evaluation Output:
-1. Calculate the percentage of match between the resume and the job description. Give a number and some explation
+1. Calculate the percentage of match between the resume and the job description. Give a number and some explanation
 2. Identify any key keywords that are missing from the resume in comparison to the job description.
 3. Offer specific and actionable tips to enhance the resume and improve its alignment with the job requirements.
 """
@@ -49,7 +57,8 @@ jd={jd}
 st.title("Raj Smart ATS")
 st.text("Imporve your ATS resume score Match")
 jd = st.text_area("Paste job description here")
-uploaded_file= st.file_uploader("Upload your resume", type="pdf", help= "Please upload the pdf")
+# uploaded_file= st.file_uploader("Upload your resume", type="pdf", help= "Please upload the pdf")
+uploaded_file = st.file_uploader("Upload your resume", type=["pdf", "docx"], help="Please upload a PDF or DOCX file")
 
 submit =  st.button('Check Your Score')
 if submit:
