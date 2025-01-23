@@ -45,7 +45,7 @@ def input_pdf_setup(uploaded_file):
 st.set_page_config(page_title="Resume Expert")
 
 st.header("JobFit Analyzer")
-st.subheader('This Application helps you in your Resume Review with help of GEMINI AI [LLM]')
+st.subheader('Intelligent Resume & Job Description Comparison')
 
 # Input Job Description (JD) text field
 input_text = st.text_input("Job Description: ", key="input")
