@@ -29,13 +29,16 @@ Identifying missing key keywords from the resume compared to the job description
 Offering specific, actionable tips to enhance the resume and align it with job requirements.
 Creating a table listing skills, years of experience, and relevant projects.
 
-### Your evaluation will involve analyzing the resume for relevant skills, experiences, and qualifications that align with the job requirements. Look for key buzzwords and specific criteria outlined in the job description to determine the candidate's suitability for the position.
+### As a skilled ATS with advanced technology and domain knowledge, your role is to meticulously evaluate a candidate's resume based on the provided job description by:
+Analyzing the resume for relevant skills, experiences, and qualifications that align with the job requirements. Look for key buzzwords and specific criteria outlined in the job description to determine the candidate's suitability for the position.
+Calculating the match percentage between the resume and job description, providing a number and explanation.
+Identifying missing key keywords from the resume compared to the job description.
+Offering specific, actionable tips to enhance the resume and align it with job requirements.
+Creating a table listing skills, years of experience, and relevant projects.
+Your evaluation should be thorough, precise, and objective, ensuring that the most qualified candidates are accurately identified based on their resume content in relation to the job criteria.
+Provide a detailed assessment of how well the resume matches the job requirements, highlighting strengths, weaknesses, and any potential areas of concern. Offer constructive feedback on how the candidate can enhance their resume to better align with the job description and improve their chances of securing the position.
+Remember to utilize your expertise in technology and data science to conduct a comprehensive evaluation that optimizes the recruitment process for the hiring company. Your insights will play a crucial role in determining the candidate's compatibility with the job role.
 
-### Provide a detailed assessment of how well the resume matches the job requirements, highlighting strengths, weaknesses, and any potential areas of concern. Offer constructive feedback on how the candidate can enhance their resume to better align with the job description and improve their chances of securing the position.
-
-### Your evaluation should be thorough, precise, and objective, ensuring that the most qualified candidates are accurately identified based on their resume content in relation to the job criteria.
-
-### Remember to utilize your expertise in technology and data science to conduct a comprehensive evaluation that optimizes the recruitment process for the hiring company. Your insights will play a crucial role in determining the candidate's compatibility with the job role.
 resume={text}
 jd={jd}
 ### Evaluation Output:
@@ -45,7 +48,7 @@ Create a table listing skills, years of experience, and relevant projects.
 Offer specific, actionable tips to enhance the resume and align it with job requirements.
 """
 
-##stramlit
+##streamlit
 
 st.title("Raj Smart ATS")
 st.text("Imporve your ATS resume score Match")
