@@ -42,9 +42,9 @@ Remember to utilize your expertise in technology and data science to conduct a c
 resume={text}
 jd={jd}
 ### Evaluation Output:
-Calculate the match percentage between the resume and job description, providing a number and explanation.
+Calculate the match percentage between the resume and job description, providing a number and an explanation of the match.
 Identify missing key keywords from the resume compared to the job description.
-Create a table listing skills, years of experience required from the JD, Candidate years of experience in Resume and relevant projects.
+Create a table listing skills, required years of experience (JD), candidate's years of experience (Resume), and relevant projects.
 Offer specific, actionable tips to enhance the resume and align it with job requirements.
 """
 
