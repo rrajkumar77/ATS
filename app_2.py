@@ -4,6 +4,7 @@ import os
 import PyPDF2 as pdf
 from dotenv import load_dotenv
 load_dotenv()
+import fitz 
 
 import google.generativeai as genai
 
