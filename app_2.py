@@ -48,9 +48,9 @@ if uploaded_file is not None:
 
 submit1 = st.button("Tell Me About the Resume")
 
-submit2 = st.button("How Can I Improvise my Skills")
+submit2 = st.button("Overall Evaluation, Strengths, Weaknesses, Areas for Improvement, Advice for Enhancing Skills")
 
-submit3 = st.button("What are the Keywords That are Missing")
+submit3 = st.button("Identify Missing Keywords and provide recommendation")
 
 submit4 = st.button("Percentage match")
 
