@@ -44,7 +44,7 @@ jd={jd}
 ### Evaluation Output:
 Calculate the match percentage between the resume and job description, providing a number and explanation.
 Identify missing key keywords from the resume compared to the job description.
-Create a table listing skills, years of experience, and relevant projects.
+Create a table listing skills, years of experience required from the JD, Candidate years of experience in Resume and relevant projects.
 Offer specific, actionable tips to enhance the resume and align it with job requirements.
 """
 
