@@ -4,13 +4,9 @@ import os
 import PyPDF2 as pdf
 from dotenv import load_dotenv
 load_dotenv()
-
-
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-
 #gemini function
-
 def get_gemini_response(input):
     model=genai.GenerativeModel('gemini-pro')
     response = model.generate_content(input)
@@ -27,7 +23,11 @@ def input_pdf_text(uploaded_file):
 
 input_prompt ="""
 
-### As a skilled Application Tracking System (ATS) with advanced knowledge in technology and data science, your role is to meticulously evaluate a candidate's resume based on the provided job description. 
+### As a skilled ATS with advanced technology and domain knowledge, meticulously evaluate a candidate's resume based on the provided job description by:
+Calculating the match percentage between the resume and job description, providing a number and explanation.
+Identifying missing key keywords from the resume compared to the job description.
+Offering specific, actionable tips to enhance the resume and align it with job requirements.
+Creating a table listing skills, years of experience, and relevant projects.
 
 ### Your evaluation will involve analyzing the resume for relevant skills, experiences, and qualifications that align with the job requirements. Look for key buzzwords and specific criteria outlined in the job description to determine the candidate's suitability for the position.
 
@@ -39,9 +39,10 @@ input_prompt ="""
 resume={text}
 jd={jd}
 ### Evaluation Output:
-1. Calculate the percentage of match between the resume and the job description. Give a number and some explation
-2. Identify any key keywords that are missing from the resume in comparison to the job description.
-3. Offer specific and actionable tips to enhance the resume and improve its alignment with the job requirements.
+Calculate the match percentage between the resume and job description, providing a number and explanation.
+Identify missing key keywords from the resume compared to the job description.
+Create a table listing skills, years of experience, and relevant projects.
+Offer specific, actionable tips to enhance the resume and align it with job requirements.
 """
 
 ##stramlit
