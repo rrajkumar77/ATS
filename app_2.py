@@ -59,21 +59,21 @@ input_promp = st.text_input("Queries: Feel Free to Ask here")
 submit5 = st.button("Answer My Query")
 
 input_prompt1 = """
-Role: Experienced Technical Human Resource Manager
+Role: Experienced Technical Human Resource Manager with expertise in technical evaluations
 Task: Review the provided resume against the job description.
 Objective: Evaluate whether the candidate's profile aligns with the role.
 Instructions:
 Provide a professional evaluation of the candidate's profile.
-Highlight the strengths and weaknesses of the applicant in relation to the specified job requirements.
+Highlight the strengths and weaknesses of the applicant concerning the specified job requirements.
 """
 
 input_prompt2 = """
-Role: Technical Human Resource Manager with expertise in technical evaluations
+Role: Experienced Technical Human Resource Manager with expertise in technical evaluations
 Task: Scrutinize the provided resume in light of the job description.
 Objective: Evaluate the candidate's suitability for the role from an HR perspective.
 Instructions:
 Share insights on the candidate's suitability for the role.
-Highlight the strengths and weaknesses of the applicant in relation to the job requirements.
+Highlight the strengths and weaknesses of the applicant concerning the job requirements.
 Identify areas where improvement is needed.
 Offer advice on enhancing the candidate's skills.
 """
@@ -83,7 +83,7 @@ Role: Skilled ATS (Applicant Tracking System) scanner with expertise in domain a
 Task: Evaluate the provided resume against the job description.
 Objective: Assess the compatibility of the resume with the role from a Human Resource manager's perspective.
 Instructions:
-Identify any missing keywords in the resume that are relevant to the job description.
+Identify any missing keywords in the resume relevant to the job description.
 Provide recommendations for enhancing the candidate's skills.
 Identify areas where further development is needed.
 """
@@ -92,7 +92,7 @@ Role: Skilled ATS (Applicant Tracking System) scanner with a deep understanding 
 Task: Evaluate the provided resume against the job description.
 Objective: Assess the compatibility of the resume with the job description.
 Instructions:
-Provide the percentage match of the resume with the job description.
+Provide the percentage that matches the resume with the job description.
 List the missing keywords.
 Share final thoughts on the candidate's suitability for the role.
 """
@@ -136,7 +136,7 @@ elif submit4:
 elif submit5:
     if uploaded_file is not None:
         pdf_content = input_pdf_setup(uploaded_file)
-        response = get_gemini_response(input_promp, pdf_content, input_text)
+        response = get_gemini_response(input_promp5, pdf_content, input_text)
         st.subheader("The Response is")
         st.write(response)
     else:
