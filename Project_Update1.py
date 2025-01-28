@@ -54,14 +54,37 @@ if uploaded_file is not None:
 
 submit1 = st.button("Consultant Project Update")
 
+input_promp = st.text_input("Queries: Feel Free to Ask here")
+
+submit4 = st.button("Answer My Query")
+
 input_prompt1 = """
 Based on the transcript uploaded, Please provide a comprehensive project update in a clear and concise format. 
+The update should include the following details if available in a table format:
+    1. Employee Name 
+    2. Project Details
+        a. Project Name
+        b. Project Description
+        c. Team details
+    3. Project Problem Statement
+    4. Resolution Strategy and Utilized Tools/Techniques
+    5. Outcome and Value Adds
+Sequence by high value to the organization.
 """
 
 if submit1:
     if uploaded_file is not None:
         doc_content = input_doc_setup(uploaded_file)
         response = get_gemini_response(input_prompt1, doc_content, "")
+        st.subheader("The Response is")
+        st.write(response)
+    else:
+        st.write("Please upload a document to proceed.")
+
+if submit4:
+    if uploaded_file is not None:
+        doc_content = input_doc_setup(uploaded_file)
+        response = get_gemini_response(input_promp, doc_content, "")
         st.subheader("The Response is")
         st.write(response)
     else:
