@@ -102,21 +102,21 @@ if submit1:
         st.write(response)
     else:
         st.write("Please upload a document to proceed.")
-
+        
 elif submit2:
     if uploaded_file is not None:
         selection_status = st.radio("Select or Reject the candidate:", ("Select", "Reject"))
         doc_content = input_doc_setup(uploaded_file)
         if selection_status == "Select":
             feedback_prompt = input_prompt2_select
-        else:
+        elif selection_status == "Reject":
             feedback_prompt = input_prompt2_reject
         response = get_gemini_response(feedback_prompt, doc_content, input_text)
         st.subheader("The Response is")
         st.write(response)
     else:
         st.write("Please upload a document to proceed.")
-
+     
 elif submit3:
     if uploaded_file is not None:
         doc_content = input_doc_setup(uploaded_file)
