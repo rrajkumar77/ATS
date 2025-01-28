@@ -80,7 +80,7 @@ Sequence by high value to the organization.
 input_prompt2_select = """
 Based on the transcript uploaded, Provide feedback on interview performance.
 The candidate is selected.
-Also provide a rating on skills 1 to 5.
+Please provide reasons and also provide a rating on skills 1 to 5.
 """
 
 input_prompt2_reject = """
