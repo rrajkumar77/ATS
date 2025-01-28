@@ -71,6 +71,7 @@ Highlight the strengths and weaknesses of the applicant concerning the specified
 input_prompt2 = """
 Can you share some technical questions to evaluate the candidate based on the above JD and Resume uploaded
 Have the questions in sequence order from project start to finish.
+Classify questions from JD and Resume 
 """
 
 input_prompt3 = """
