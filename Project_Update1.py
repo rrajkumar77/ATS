@@ -61,7 +61,7 @@ Based on the transcript uploaded, Please provide a comprehensive project update 
 if submit1:
     if uploaded_file is not None:
         doc_content = input_doc_setup(uploaded_file)
-        response = get_gemini_response(input_prompt1, doc_content, input_text)
+        response = get_gemini_response(input_prompt1, doc_content)
         st.subheader("The Response is")
         st.write(response)
     else:
