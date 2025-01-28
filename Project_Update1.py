@@ -1,3 +1,6 @@
+Sure! Here's the simplified code with only the "Consultant Project Update" functionality:
+
+```python
 import streamlit as st
 import google.generativeai as genai
 import os
@@ -55,14 +58,6 @@ if uploaded_file is not None:
 
 submit1 = st.button("Consultant Project Update")
 
-submit2 = st.button("Techout Feedback")
-
-submit3 = st.button("Interview Questions")
-
-input_promp = st.text_input("Queries: Feel Free to Ask here")
-
-submit4 = st.button("Answer My Query")
-
 input_prompt1 = """
 Based on the transcript uploaded, Please provide a comprehensive project update in a clear and concise format. 
 The update should include the following details if available in a table format:
@@ -77,23 +72,6 @@ The update should include the following details if available in a table format:
 Sequence by high value to the organization.
 """
 
-input_prompt2_select = """
-Based on the transcript uploaded, Provide feedback on interview performance.
-The candidate is selected.
-Also provide a rating on skills 1 to 5.
-"""
-
-input_prompt2_reject = """
-Based on the transcript uploaded, Provide feedback on interview performance.
-The candidate is rejected.
-Please provide reasons for rejection and also provide a rating on skills 1 to 5.
-"""
-
-input_prompt3 = """
-Can you share some technical questions to evaluate the candidate based on the above JD uploaded
-Have the questions in sequence order from project start to finish.
-"""
-
 if submit1:
     if uploaded_file is not None:
         doc_content = input_doc_setup(uploaded_file)
@@ -102,42 +80,6 @@ if submit1:
         st.write(response)
     else:
         st.write("Please upload a document to proceed.")
+```
 
-elif submit2:
-    if uploaded_file is not None:
-        selection_status = st.text_input("Enter 'Select' or 'Reject' for the candidate:")
-        if selection_status:
-            doc_content = input_doc_setup(uploaded_file)
-            if selection_status.lower() == "select":
-                feedback_prompt = input_prompt2_select
-            elif selection_status.lower() == "reject":
-                feedback_prompt = input_prompt2_reject
-            else:
-                st.write("Invalid input. Please enter 'Select' or 'Reject'.")
-                feedback_prompt = None
-            if feedback_prompt:
-                response = get_gemini_response(feedback_prompt, doc_content, input_text)
-                st.subheader("The Response is")
-                st.write(response)
-        else:
-            st.write("Please enter 'Select' or 'Reject' to proceed.")
-    else:
-        st.write("Please upload a document to proceed.")
-
-elif submit3:
-    if uploaded_file is not None:
-        doc_content = input_doc_setup(uploaded_file)
-        response = get_gemini_response(input_prompt3, doc_content, input_text)
-        st.subheader("The Response is")
-        st.write(response)
-    else:
-        st.write("Please upload a document to proceed.")
-
-elif submit4:
-    if uploaded_file is not None:
-        doc_content = input_doc_setup(uploaded_file)
-        response = get_gemini_response(input_promp, doc_content, input_text)
-        st.subheader("The Response is")
-        st.write(response)
-    else:
-        st.write("Please upload a document to proceed.")
+This code now only includes the "Consultant Project Update" functionality. Let me know if you need any further adjustments!
