@@ -31,6 +31,9 @@ def input_doc_setup(uploaded_file):
             document = docx.Document(uploaded_file)
             text_parts = [para.text for para in document.paragraphs]
             doc_text_content = " ".join(text_parts)
+        elif uploaded_file.type == "text/plain":
+            # Read the TXT file
+            doc_text_content = uploaded_file.read().decode("utf-8")
         else:
             raise ValueError("Unsupported file type")
         return doc_text_content
@@ -41,10 +44,10 @@ def input_doc_setup(uploaded_file):
 
 st.set_page_config(page_title="Resume Expert")
 
-st.header("Document Analyzer")
-st.subheader('This Application helps you to Analyse your document')
+st.header("JobFit Analyzer")
+st.subheader('This Application helps you to evaluate the Resume Review with the Job Description')
 input_text = st.text_input("Job Description: ", key="input")
-uploaded_file = st.file_uploader("Upload your Resume (PDF or DOCX)...", type=["pdf", "docx"])
+uploaded_file = st.file_uploader("Upload your Resume (PDF, DOCX, or TXT)...", type=["pdf", "docx", "txt"])
 doc_content = ""
 
 if uploaded_file is not None:
