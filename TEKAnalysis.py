@@ -72,6 +72,7 @@ input_prompt2 = """
 Can you share some technical questions to evaluate the candidate based on the above JD and Resume uploaded
 Have the questions in sequence order from project start to finish.
 Classify questions from JD and Resume 
+also provide answers so the recruiter can validate 
 """
 
 input_prompt3 = """
