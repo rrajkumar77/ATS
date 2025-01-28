@@ -1,6 +1,3 @@
-Sure! Here's the simplified code with only the "Consultant Project Update" functionality:
-
-```python
 import streamlit as st
 import google.generativeai as genai
 import os
@@ -80,6 +77,3 @@ if submit1:
         st.write(response)
     else:
         st.write("Please upload a document to proceed.")
-```
-
-This code now only includes the "Consultant Project Update" functionality. Let me know if you need any further adjustments!
