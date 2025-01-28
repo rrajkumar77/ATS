@@ -44,8 +44,8 @@ def input_doc_setup(uploaded_file):
 
 st.set_page_config(page_title="Resume Expert")
 
-st.header("Document Analyzer")
-st.subheader('This Application helps you to evaluate the Document')
+st.header("JobFit Analyzer")
+st.subheader('This Application helps you to evaluate the Resume Review with the Job Description')
 uploaded_file = st.file_uploader("Upload your Resume (PDF, DOCX, or TXT)...", type=["pdf", "docx", "txt"])
 doc_content = ""
 
@@ -61,7 +61,7 @@ Based on the transcript uploaded, Please provide a comprehensive project update 
 if submit1:
     if uploaded_file is not None:
         doc_content = input_doc_setup(uploaded_file)
-        response = get_gemini_response(input_prompt1, doc_content)
+        response = get_gemini_response(input_prompt1, doc_content, "")
         st.subheader("The Response is")
         st.write(response)
     else:
