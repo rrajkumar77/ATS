@@ -5,4 +5,4 @@ python-dotenv
 PyMuPDF
 fitz
 langchain-experimental
-docx
+python-docx
