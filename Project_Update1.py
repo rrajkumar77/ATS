@@ -119,6 +119,3 @@ elif submit4:
         st.write(response)
     else:
         st.write("Please upload a document to proceed.")
-```
-
-This code now supports both PDF and DOCX file uploads. Let me know if you need any further adjustments!
