@@ -105,20 +105,22 @@ if submit1:
 
 elif submit2:
     if uploaded_file is not None:
-        selection_status = st.selectbox("Select or Reject the candidate:", ["", "Select", "Reject"])
-        st.write(f"Selection status: {selection_status}")  # Debug statement
+        selection_status = st.text_input("Enter 'Select' or 'Reject' for the candidate:")
         if selection_status:
             doc_content = input_doc_setup(uploaded_file)
-            st.write(f"Document content: {doc_content[:500]}")  # Debug statement
-            if selection_status == "Select":
+            if selection_status.lower() == "select":
                 feedback_prompt = input_prompt2_select
-            elif selection_status == "Reject":
+            elif selection_status.lower() == "reject":
                 feedback_prompt = input_prompt2_reject
-            response = get_gemini_response(feedback_prompt, doc_content, input_text)
-            st.subheader("The Response is")
-            st.write(response)
+            else:
+                st.write("Invalid input. Please enter 'Select' or 'Reject'.")
+                feedback_prompt = None
+            if feedback_prompt:
+                response = get_gemini_response(feedback_prompt, doc_content, input_text)
+                st.subheader("The Response is")
+                st.write(response)
         else:
-            st.write("Please select an option to proceed.")
+            st.write("Please enter 'Select' or 'Reject' to proceed.")
     else:
         st.write("Please upload a document to proceed.")
 
