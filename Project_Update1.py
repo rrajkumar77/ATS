@@ -80,7 +80,7 @@ Sequence by high value to the organization.
 input_prompt2_select = """
 Based on the transcript uploaded, Provide feedback on interview performance.
 The candidate is selected.
-Please provide reasons for Select and also provide a rating on skills 1 to 5.
+Please provide reasons for select and also provide a rating on skills 1 to 5.
 """
 
 input_prompt2_reject = """
@@ -105,7 +105,7 @@ if submit1:
 
 elif submit2:
     if uploaded_file is not None:
-        selection_status = st.radio("Select or Reject the candidate:", ("Select", "Reject"))
+        selection_status = st.selectbox("Select or Reject the candidate:", ["", "Select", "Reject"])
         if selection_status:
             doc_content = input_doc_setup(uploaded_file)
             if selection_status == "Select":
