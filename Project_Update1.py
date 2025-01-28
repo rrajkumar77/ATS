@@ -59,17 +59,7 @@ input_promp = st.text_input("Queries: Feel Free to Ask here")
 submit4 = st.button("Answer My Query")
 
 input_prompt1 = """
-Based on the transcript uploaded, Please provide a comprehensive project update in a clear and concise format. 
-The update should include the following details if available in a table format:
-    1. Employee Name 
-    2. Project Details
-        a. Project Name
-        b. Project Description
-        c. Team details
-    3. Project Problem Statement
-    4. Resolution Strategy and Utilized Tools/Techniques
-    5. Outcome and Value Adds
-Sequence by high value to the organization.
+Based on the transcript uploaded, Please provide a comprehensive project update. 
 """
 
 if submit1:
