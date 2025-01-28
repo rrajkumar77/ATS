@@ -63,6 +63,7 @@ Role: Experienced Technical Human Resource Manager with expertise in technical e
 Task: Review the provided resume against the job description.
 Objective: Evaluate whether the candidate's profile aligns with the role.
 Instructions:
+Provide the match percentage between the resume and job description
 Provide a professional evaluation of the candidate's profile.
 Highlight the strengths and weaknesses of the applicant concerning the specified job requirements.
 """
@@ -72,6 +73,7 @@ Role: Experienced Technical Human Resource Manager with expertise in technical e
 Task: Scrutinize the provided resume in light of the job description.
 Objective: Evaluate the candidate's suitability for the role from an HR perspective.
 Instructions:
+Provide the match percentage between the resume and job description
 Share insights on the candidate's suitability for the role.
 Highlight the strengths and weaknesses of the applicant concerning the job requirements.
 Identify areas where improvement is needed.
@@ -95,9 +97,8 @@ Instructions:
 1. Calculate the match percentage between the resume and job description, provide a percentage number 
 2. Explain the match and the gap
 3. Identify missing keywords or skills from the resume compared to the job description.
-4. Create a table that includes the top 5 skills, the required years of experience (JD), the candidate's years of experience (Resume), and the relevant projects they have worked on.
+4. Create a table that includes the top 5 skills, the required years of experience (JD), the candidate's years of experience (Resume), and the relevant projects with the year they have worked on.
 5. Share final thoughts on the candidate's suitability for the role.
-
 """
 
 if submit1:
