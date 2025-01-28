@@ -77,9 +77,16 @@ The update should include the following details if available in a table format:
 Sequence by high value to the organization.
 """
 
-input_prompt2 = """
-Based on the transcript uploaded, Provide feedback on interview performance
-Also provide a rating on skills 1 to 5
+input_prompt2_select = """
+Based on the transcript uploaded, Provide feedback on interview performance.
+The candidate is selected.
+Also provide a rating on skills 1 to 5.
+"""
+
+input_prompt2_reject = """
+Based on the transcript uploaded, Provide feedback on interview performance.
+The candidate is rejected.
+Please provide reasons for rejection and also provide a rating on skills 1 to 5.
 """
 
 input_prompt3 = """
@@ -101,17 +108,9 @@ elif submit2:
         selection_status = st.radio("Select or Reject the candidate:", ("Select", "Reject"))
         doc_content = input_doc_setup(uploaded_file)
         if selection_status == "Select":
-            feedback_prompt = """
-            Based on the transcript uploaded, Provide feedback on interview performance.
-            The candidate is selected.
-            Also provide a rating on skills 1 to 5.
-            """
+            feedback_prompt = input_prompt2_select
         else:
-            feedback_prompt = """
-            Based on the transcript uploaded, Provide feedback on interview performance.
-            The candidate is rejected.
-            Also provide a rating on skills 1 to 5.
-            """
+            feedback_prompt = input_prompt2_reject
         response = get_gemini_response(feedback_prompt, doc_content, input_text)
         st.subheader("The Response is")
         st.write(response)
