@@ -60,9 +60,9 @@ def main():
                 st.text(document_content[:500] + "...")
             
             # Create columns for buttons
-            col1, col2 = st.columns(2)
+            col1, col2, col3 = st.columns(3)
             
-            # Project Update Button
+            # Basic Project Update Button
             project_update_prompt = """
             Please provide a comprehensive project update in a clear and concise format. Analyze the document and extract/organize the following details:
 
@@ -78,15 +78,39 @@ def main():
             Format the output using markdown tables for better readability.
             """
             
+            # Detailed Project Update Button
+            detailed_project_update_prompt = """
+            Please provide a comprehensive project update in a clear and concise format. The update should include the following details presented in a table:
+ 
+            1. Employee Name
+            2. Project Details
+               - Project Name
+               - Project Description
+               - Team details
+            3. Project Problem Statement
+            4. Resolution Strategy and Utilized Tools/Techniques
+            5. Outcome and Value Adds
+ 
+            Sequence by high value to the organization.
+            Format the output using markdown tables for better readability.
+            """
+            
             with col1:
-                if st.button("🎯 Project Update", type="primary"):
-                    with st.spinner("Generating project update..."):
+                if st.button("🎯 Basic Project Update", type="primary"):
+                    with st.spinner("Generating basic project update..."):
                         response = get_gemini_response(project_update_prompt, document_content)
-                        st.subheader("Project Update Analysis")
+                        st.subheader("Basic Project Update Analysis")
+                        st.markdown(response)
+            
+            with col2:
+                if st.button("📊 Detailed Project Update", type="primary"):
+                    with st.spinner("Generating detailed project update..."):
+                        response = get_gemini_response(detailed_project_update_prompt, document_content)
+                        st.subheader("Detailed Project Update Analysis")
                         st.markdown(response)
             
             # Custom Analysis Section
-            with col2:
+            with col3:
                 if st.button("🔍 Custom Analysis", type="primary"):
                     st.session_state.show_custom = True
 
