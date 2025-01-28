@@ -80,7 +80,7 @@ Sequence by high value to the organization.
 input_prompt2_select = """
 Based on the transcript uploaded, Provide feedback on interview performance.
 The candidate is selected.
-Also provide a rating on skills 1 to 5.
+Please provide reasons for Selection and also provide a rating on skills 1 to 5.
 """
 
 input_prompt2_reject = """
@@ -105,13 +105,13 @@ if submit1:
 
 elif submit2:
     if uploaded_file is not None:
-        selection_status = st.radio("Select or Reject the candidate:", ("", "Select", "Reject"), index=0)
-        doc_content = input_doc_setup(uploaded_file)
-        if selection_status == "Select":
-            feedback_prompt = input_prompt2_select
-        elif selection_status == "Reject":
-            feedback_prompt = input_prompt2_reject
+        selection_status = st.radio("Select or Reject the candidate:", ("Select", "Reject"))
         if selection_status:
+            doc_content = input_doc_setup(uploaded_file)
+            if selection_status == "Select":
+                feedback_prompt = input_prompt2_select
+            elif selection_status == "Reject":
+                feedback_prompt = input_prompt2_reject
             response = get_gemini_response(feedback_prompt, doc_content, input_text)
             st.subheader("The Response is")
             st.write(response)
