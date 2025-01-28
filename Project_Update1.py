@@ -44,8 +44,8 @@ def input_doc_setup(uploaded_file):
 
 st.set_page_config(page_title="Resume Expert")
 
-st.header("JobFit Analyzer")
-st.subheader('This Application helps you to evaluate the Resume Review with the Job Description')
+st.header("Document Analyzer")
+st.subheader('This Application helps you to Analyse any document uploaded')
 uploaded_file = st.file_uploader("Upload your Resume (PDF, DOCX, or TXT)...", type=["pdf", "docx", "txt"])
 doc_content = ""
 
