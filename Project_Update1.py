@@ -44,8 +44,8 @@ def input_doc_setup(uploaded_file):
 
 st.set_page_config(page_title="Resume Expert")
 
-st.header("Document Analyzer")
-st.subheader('This Application helps you to Analyse the Document')
+st.header("JobFit Analyzer")
+st.subheader('This Application helps you to evaluate the Resume Review with the Job Description')
 input_text = st.text_input("Job Description: ", key="input")
 uploaded_file = st.file_uploader("Upload your Resume (PDF, DOCX, or TXT)...", type=["pdf", "docx", "txt"])
 doc_content = ""
@@ -80,7 +80,7 @@ Sequence by high value to the organization.
 input_prompt2_select = """
 Based on the transcript uploaded, Provide feedback on interview performance.
 The candidate is selected.
-Please provide reasons for rejection and also provide a rating on skills 1 to 5.
+Also provide a rating on skills 1 to 5.
 """
 
 input_prompt2_reject = """
@@ -102,21 +102,24 @@ if submit1:
         st.write(response)
     else:
         st.write("Please upload a document to proceed.")
-        
+
 elif submit2:
     if uploaded_file is not None:
-        selection_status = st.radio("Select or Reject the candidate:", ("Select", "Reject"))
+        selection_status = st.radio("Select or Reject the candidate:", ("", "Select", "Reject"), index=0)
         doc_content = input_doc_setup(uploaded_file)
         if selection_status == "Select":
             feedback_prompt = input_prompt2_select
         elif selection_status == "Reject":
             feedback_prompt = input_prompt2_reject
-        response = get_gemini_response(feedback_prompt, doc_content, input_text)
-        st.subheader("The Response is")
-        st.write(response)
+        if selection_status:
+            response = get_gemini_response(feedback_prompt, doc_content, input_text)
+            st.subheader("The Response is")
+            st.write(response)
+        else:
+            st.write("Please select an option to proceed.")
     else:
         st.write("Please upload a document to proceed.")
-     
+
 elif submit3:
     if uploaded_file is not None:
         doc_content = input_doc_setup(uploaded_file)
