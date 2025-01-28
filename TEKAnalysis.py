@@ -48,7 +48,7 @@ if uploaded_file is not None:
 
 submit1 = st.button("Technical Recruiter Analysis")
 
-submit2 = st.button("Account Manager Analysis")
+submit2 = st.button("Technical Questions")
 
 submit3 = st.button("Domain Expert Analysis")
 
@@ -69,15 +69,8 @@ Highlight the strengths and weaknesses of the applicant concerning the specified
 """
 
 input_prompt2 = """
-Role: Experienced Technical Human Resource Manager with expertise in technical evaluations
-Task: Scrutinize the provided resume in light of the job description.
-Objective: Evaluate the candidate's suitability for the role from an HR perspective.
-Instructions:
-Provide the match percentage between the resume and job description
-Share insights on the candidate's suitability for the role.
-Highlight the strengths and weaknesses of the applicant concerning the job requirements.
-Identify areas where improvement is needed.
-Offer advice on enhancing the candidate's skills.
+Can you share some technical questions to evaluate the candidate based on the above JD and Resume uploaded
+Have the questions in sequence order from project start to finish.
 """
 
 input_prompt3 = """
