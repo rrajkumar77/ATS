@@ -98,8 +98,21 @@ if submit1:
 
 elif submit2:
     if uploaded_file is not None:
+        selection_status = st.radio("Select or Reject the candidate:", ("Select", "Reject"))
         doc_content = input_doc_setup(uploaded_file)
-        response = get_gemini_response(input_prompt2, doc_content, input_text)
+        if selection_status == "Select":
+            feedback_prompt = """
+            Based on the transcript uploaded, Provide feedback on interview performance.
+            The candidate is selected.
+            Also provide a rating on skills 1 to 5.
+            """
+        else:
+            feedback_prompt = """
+            Based on the transcript uploaded, Provide feedback on interview performance.
+            The candidate is rejected.
+            Also provide a rating on skills 1 to 5.
+            """
+        response = get_gemini_response(feedback_prompt, doc_content, input_text)
         st.subheader("The Response is")
         st.write(response)
     else:
