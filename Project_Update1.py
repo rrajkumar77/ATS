@@ -46,7 +46,6 @@ st.set_page_config(page_title="Resume Expert")
 
 st.header("Document Analyzer")
 st.subheader('This Application helps you to evaluate the Document')
-input_text = st.text_input("Document Description: ", key="input")
 uploaded_file = st.file_uploader("Upload your Resume (PDF, DOCX, or TXT)...", type=["pdf", "docx", "txt"])
 doc_content = ""
 
@@ -57,16 +56,6 @@ submit1 = st.button("Consultant Project Update")
 
 input_prompt1 = """
 Based on the transcript uploaded, Please provide a comprehensive project update in a clear and concise format. 
-The update should include the following details if available in a table format:
-    1. Employee Name 
-    2. Project Details
-        a. Project Name
-        b. Project Description
-        c. Team details
-    3. Project Problem Statement
-    4. Resolution Strategy and Utilized Tools/Techniques
-    5. Outcome and Value Adds
-Sequence by high value to the organization.
 """
 
 if submit1:
