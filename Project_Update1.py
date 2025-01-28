@@ -106,8 +106,10 @@ if submit1:
 elif submit2:
     if uploaded_file is not None:
         selection_status = st.selectbox("Select or Reject the candidate:", ["", "Select", "Reject"])
+        st.write(f"Selection status: {selection_status}")  # Debug statement
         if selection_status:
             doc_content = input_doc_setup(uploaded_file)
+            st.write(f"Document content: {doc_content[:500]}")  # Debug statement
             if selection_status == "Select":
                 feedback_prompt = input_prompt2_select
             elif selection_status == "Reject":
