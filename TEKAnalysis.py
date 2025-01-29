@@ -40,17 +40,23 @@ st.header("Document Analyzer")
 st.subheader('Analyze your resume and match required skills')
 
 uploaded_file = st.file_uploader("Upload your Resume (PDF, DOCX, or TXT)...", type=["pdf", "docx", "txt"])
+jd_file = st.file_uploader("Upload Job Description (PDF, DOCX, or TXT)...", type=["pdf", "docx", "txt"])
 user_skills = st.text_area("Enter Top Required Skills (comma-separated)", "Python, Data Analysis, Machine Learning")
 
 doc_content = ""
+jd_content = ""
 if uploaded_file is not None:
-    st.write("Document Uploaded Successfully")
+    st.write("Resume Uploaded Successfully")
     doc_content = input_doc_setup(uploaded_file)
+if jd_file is not None:
+    st.write("Job Description Uploaded Successfully")
+    jd_content = input_doc_setup(jd_file)
     
 skill_list = [skill.strip().lower() for skill in user_skills.split(",")]
 
 submit1 = st.button("Consultant Project Update")
 submit2 = st.button("Analyze Resume")
+submit4 = st.button("Compare Resume with JD")
 input_promp = st.text_input("Queries: Feel Free to Ask here")
 submit3 = st.button("Answer My Query")
 
@@ -90,6 +96,18 @@ if submit2:
         st.dataframe(df)
     else:
         st.write("Please upload a resume and enter required skills to proceed.")
+
+if submit4:
+    if uploaded_file is not None and jd_file is not None:
+        input_prompt3 = """
+        Compare the given resume with the job description and list the matching and missing skills.
+        Provide an overall compatibility score and suggest areas for improvement.
+        """
+        response = get_gemini_response(input_prompt3, doc_content, jd_content)
+        st.subheader("Comparison Result")
+        st.write(response)
+    else:
+        st.write("Please upload both a resume and a job description to proceed.")
 
 if submit3:
     if uploaded_file is not None:
