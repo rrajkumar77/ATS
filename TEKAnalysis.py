@@ -2,141 +2,99 @@ import streamlit as st
 import google.generativeai as genai
 import os
 import PyPDF2 as pdf
+import docx
+import pandas as pd
 from dotenv import load_dotenv
+
 load_dotenv()
-import fitz 
 
-import google.generativeai as genai
-
-os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-def get_gemini_response(input, pdf_content, prompt):
+def get_gemini_response(input, doc_content, prompt):
     model = genai.GenerativeModel('gemini-pro')
-    response = model.generate_content([input, pdf_content, prompt])
+    response = model.generate_content([input, doc_content, prompt])
     return response.text
 
-def input_pdf_setup(uploaded_file):
+def input_doc_setup(uploaded_file):
     if uploaded_file is not None:
-        # Read the PDF file
-        document = fitz.open(stream=uploaded_file.read(), filetype="pdf")
-        # Initialize a list to hold the text of each page
-        text_parts = []
-
-        # Iterate over the pages of the PDF to extract the text
-        for page in document:
-            text_parts.append(page.get_text())
-
-        # Concatenate the list into a single string with a space in between each part
-        pdf_text_content = " ".join(text_parts)
-        return pdf_text_content
+        if uploaded_file.type == "application/pdf":
+            document = pdf.PdfReader(uploaded_file)
+            text_parts = [page.extract_text() for page in document.pages if page.extract_text()]
+            doc_text_content = " ".join(text_parts)
+        elif uploaded_file.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+            document = docx.Document(uploaded_file)
+            text_parts = [para.text for para in document.paragraphs]
+            doc_text_content = " ".join(text_parts)
+        elif uploaded_file.type == "text/plain":
+            doc_text_content = uploaded_file.read().decode("utf-8")
+        else:
+            raise ValueError("Unsupported file type")
+        return doc_text_content
     else:
         raise FileNotFoundError("No file uploaded")
 
-## Streamlit App
-
+# Streamlit App
 st.set_page_config(page_title="Resume Expert")
 
-st.header("JobFit Analyzer")
-st.subheader('This Application helps you to evaluate the Resume Review with the Job Description')
-input_text = st.text_input("Job Description: ", key="input")
-uploaded_file = st.file_uploader("Upload your Resume(PDF)...", type=["pdf"])
-pdf_content = ""
+st.header("Document Analyzer")
+st.subheader('Analyze your resume and match required skills')
 
+uploaded_file = st.file_uploader("Upload your Resume (PDF, DOCX, or TXT)...", type=["pdf", "docx", "txt"])
+user_skills = st.text_area("Enter Top Required Skills (comma-separated)", "Python, Data Analysis, Machine Learning")
+
+doc_content = ""
 if uploaded_file is not None:
-    st.write("PDF Uploaded Successfully")
+    st.write("Document Uploaded Successfully")
+    doc_content = input_doc_setup(uploaded_file)
+    
+skill_list = [skill.strip().lower() for skill in user_skills.split(",")]
 
-submit1 = st.button("Technical Recruiter Analysis")
-
-submit2 = st.button("Technical Questions")
-
-submit3 = st.button("Domain Expert Analysis")
-
-submit4 = st.button("Technical Manager Analysis")
-
+submit1 = st.button("Consultant Project Update")
+submit2 = st.button("Analyze Resume")
 input_promp = st.text_input("Queries: Feel Free to Ask here")
-
-submit5 = st.button("Answer My Query")
+submit3 = st.button("Answer My Query")
 
 input_prompt1 = """
-Role: Experienced Technical Human Resource Manager with expertise in technical evaluations and Recruitement
-Task: Review the provided resume against the job description.
-Objective: Evaluate whether the candidate's profile aligns with the role.
-Instructions:
-Provide the match percentage between the resume and job description
-Provide a professional evaluation of the candidate's profile.
-Highlight the strengths and weaknesses of the applicant concerning the specified job requirements.
-"""
-
-input_prompt2 = """
-Can you share some technical questions to evaluate the candidate based on the above JD and Resume uploaded
-Have the questions in sequence order from project start to finish.
-Classify questions from JD and Resume 
-also provide answers so the recruiter can validate 
-"""
-
-input_prompt3 = """
-Role: Skilled ATS (Applicant Tracking System) scanner with expertise in domain and ATS functionality
-Task: Evaluate the provided resume against the job description.
-Objective: Assess the compatibility of the resume with the job description from a Domain Expert perspective. (Eg: Business Analyst(BA), Functional Manger or Project Manager)
-Instructions:
-Calculating the match percentage between the resume and job description, provide a percentage number and explanation.
-Identify any missing keywords in the resume relevant to the job description.
-Your evaluation should be thorough, precise, and objective. It should ensure that the most qualified candidates are accurately identified based on their resume content concerning the job criteria.
-"""
-input_prompt4 = """
-Role: Skilled ATS (Applicant Tracking System) scanner with a deep understanding of the technology and Technical skills mentioned in the job description and ATS functionality
-Task: Evaluate the provided resume against the job description.
-Objective: Assess the compatibility of the resume with the job description from a Technical Expert perspective.
-Instructions:
-1. Calculate the match percentage between the resume and job description, provide a percentage number 
-2. Explain the match and the gap
-3. Identify missing keywords or skills from the resume compared to the job description.
-4. Create a table that includes the top 5 skills, the required years of experience (JD), the candidate's years of experience (Resume), and the relevant projects with the year they have worked on.
-5. Share final thoughts on the candidate's suitability for the role.
+Based on the transcript uploaded, please provide a comprehensive project update.
 """
 
 if submit1:
     if uploaded_file is not None:
-        pdf_content = input_pdf_setup(uploaded_file)
-        response = get_gemini_response(input_prompt1, pdf_content, input_text)
-        st.subheader("Technical Recruiter Analysis")
-        st.write(response)
-    else:
-        st.write("Please upload a PDF file to proceed.")
-
-elif submit2:
-    if uploaded_file is not None:
-        pdf_content = input_pdf_setup(uploaded_file)
-        response = get_gemini_response(input_prompt2, pdf_content, input_text)
-        st.subheader("Account Manager Analysis")
-        st.write(response)
-    else:
-        st.write("Please upload a PDF file to proceed.")
-
-elif submit3:
-    if uploaded_file is not None:
-        pdf_content = input_pdf_setup(uploaded_file)
-        response = get_gemini_response(input_prompt3, pdf_content, input_text)
-        st.subheader("Domain Expert Analysis")
-        st.write(response)
-    else:
-        st.write("Please upload a PDF file to proceed.")
-
-elif submit4:
-    if uploaded_file is not None:
-        pdf_content = input_pdf_setup(uploaded_file)
-        response = get_gemini_response(input_prompt4, pdf_content, input_text)
-        st.subheader("Technical Manager Analysis")
-        st.write(response)
-    else:
-        st.write("Please upload a PDF file to proceed.")
-
-elif submit5:
-    if uploaded_file is not None:
-        pdf_content = input_pdf_setup(uploaded_file)
-        response = get_gemini_response(input_promp5, pdf_content, input_text)
+        response = get_gemini_response(input_prompt1, doc_content, "")
         st.subheader("The Response is")
         st.write(response)
     else:
-        st.write("Please upload a PDF file to proceed.")
+        st.write("Please upload a document to proceed.")
+
+if submit2:
+    if uploaded_file is not None and user_skills:
+        matching_skills = {skill: skill in doc_content.lower() for skill in skill_list}
+        
+        input_prompt2 = f"""
+        Extract the relevant projects and years of experience for each of the following skills: {', '.join(skill_list)} 
+        from the resume.
+        """
+        
+        response = get_gemini_response(input_prompt2, doc_content, "")
+        project_experience = response.split('\n')  # Assumes AI provides structured output
+        
+        results = []
+        for skill in skill_list:
+            matched = "✔" if matching_skills[skill] else "✖"
+            relevant_projects = next((proj for proj in project_experience if skill in proj.lower()), "No relevant experience found")
+            results.append([skill, matched, relevant_projects])
+        
+        df = pd.DataFrame(results, columns=["Skill", "Matched", "Relevant Projects & Experience"])
+        
+        st.subheader("Skill Match Results")
+        st.dataframe(df)
+    else:
+        st.write("Please upload a resume and enter required skills to proceed.")
+
+if submit3:
+    if uploaded_file is not None:
+        response = get_gemini_response(input_promp, doc_content, "")
+        st.subheader("The Response is")
+        st.write(response)
+    else:
+        st.write("Please upload a document to proceed.")
