@@ -42,11 +42,11 @@ def input_doc_setup(uploaded_file):
 
 ## Streamlit App
 
-st.set_page_config(page_title="Resume Expert")
+st.set_page_config(page_title="Document Analyser")
 
 st.header("Document Analyzer")
 st.subheader('This Application helps you to Analyse any document uploaded')
-uploaded_file = st.file_uploader("Upload your Resume (PDF, DOCX, or TXT)...", type=["pdf", "docx", "txt"])
+uploaded_file = st.file_uploader("Upload your Document (PDF, DOCX, or TXT)...", type=["pdf", "docx", "txt"])
 doc_content = ""
 
 if uploaded_file is not None:
