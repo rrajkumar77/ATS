@@ -97,14 +97,24 @@ input_prompts = {
     """
 }
 
-if submit1 or submit2 or submit3 or submit4:
-    if uploaded_file is not None:
-        selected_prompt = input_prompts[st.session_state["button"]]  
+if submit1:
+    selected_prompt = input_prompts["Technical Recruiter Analysis"]
+elif submit2:
+    selected_prompt = input_prompts["Account Manager Analysis"]
+elif submit3:
+    selected_prompt = input_prompts["Domain Expert Analysis"]
+elif submit4:
+    selected_prompt = input_prompts["Technical Manager Analysis"]
+else:
+    selected_prompt = None
+
+if selected_prompt:
+    if uploaded_file is not None and jd_file is not None:
         response = get_gemini_response(selected_prompt, doc_content, jd_content)
         st.subheader(selected_prompt.split("\n")[0])
         st.write(response)
     else:
-        st.write("Please upload a resume and job description to proceed.")
+        st.write("Please upload both a resume and a job description to proceed.")
 
 if submit5:
     if uploaded_file is not None and jd_file is not None:
