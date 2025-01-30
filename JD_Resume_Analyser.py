@@ -119,13 +119,13 @@ Summarize the key responsibilities, required skills, and qualifications mentione
 input_prompt6 = """
 Role: Skill Analyst
 Task: Perform a Skill Analysis
-Objective: Analyze the provided job description (JD) and resume to determine the match status of skills.
+Objective: Analyze the resume to determine the match status of skills.
 Instructions:
 Input: top_skills
-Process: For each skill in the top_skills, check if the skill mentioned is/are present in the resume or not.
+Process: only for each skill entered in the top_skills, check if the skill mentioned is present in the resume or not.
 Output:
 Provide in a Table format 
-Skill: The skill being analyzed.
+Skill: The skill being analyzed as per top_skills input.
 Match Status: "Yes" if the skill is present in the resume, otherwise "No".
 Relevant Projects: List relevant projects from the resume (e.g., "Project A, Project B") or else NA.
 Years of Experience: Total years of experience related to the skill (e.g., "3 years") or else NA.
