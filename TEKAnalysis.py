@@ -160,7 +160,7 @@ elif submit4:
 elif submit5:
     if uploaded_file is not None:
         pdf_content = input_pdf_setup(uploaded_file)
-        response = get_gemini_response(input_promp5, pdf_content, input_text)
+        response = get_gemini_response(input_prompt5, pdf_content, input_text)
         st.subheader("The Response is")
         st.write(response)
     else:
@@ -169,7 +169,7 @@ elif submit5:
 elif submit6:
     if uploaded_file is not None:
         pdf_content = input_pdf_setup(uploaded_file)
-        response = get_gemini_response(input_promp6, pdf_content, input_text)
+        response = get_gemini_response(input_prompt6, pdf_content, input_text)
         st.subheader("Top Skill Analysis")
         st.write(response)
     else:
