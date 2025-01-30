@@ -6,3 +6,4 @@ PyMuPDF
 fitz
 langchain-experimental
 python-docx
+pymupdf
