@@ -46,26 +46,25 @@ st.set_page_config(page_title="Resume Expert")
 st.header("JobFit Analyzer")
 st.subheader('This Application helps you to evaluate the Resume Review with the Job Description')
 input_text = st.text_input("Job Description: ", key="input")
-uploaded_file = st.file_uploader("Upload your Resume(PDF)...", type=["pdf"])
-pdf_content = ""
-
-if uploaded_file is not None:
-    st.write("PDF Uploaded Successfully")
-
-top_skills = st.text_input("Top Skills Required for the Job (comma-separated):")
-
-submit1 = st.button("Technical Recruiter Analysis")
-submit2 = st.button("Technical Questions")
-submit3 = st.button("Domain Expert Analysis")
-submit4 = st.button("Technical Manager Analysis")
-submit5 = st.button("Answer My Query")
-submit6 = st.button("Skill Analysis")
 submit7 = st.button("JD Summarization")
 
+uploaded_file = st.file_uploader("Upload your Resume(PDF)...", type=["pdf"])
+pdf_content = ""
+if uploaded_file is not None:
+    st.write("PDF Uploaded Successfully")
+submit1 = st.button("Technical Recruiter Analysis")
+submit3 = st.button("Domain Expert Analysis")
+submit4 = st.button("Technical Manager Analysis")
+submit2 = st.button("Technical Questions")
+
+top_skills = st.text_input("Top Skills Required for the Job (comma-separated):")
+submit6 = st.button("Skill Analysis")
+
 input_promp = st.text_input("Queries: Feel Free to Ask here")
+submit5 = st.button("Answer My Query")
 
 input_prompt1 = """
-Role: Experienced Technical Human Resource Manager with expertise in technical evaluations and Recruitement
+Role: Experienced Technical Human Resource Manager with expertise in technical evaluations and Recruitment
 Task: Review the provided resume against the job description.
 Objective: Evaluate whether the candidate's profile aligns with the role.
 Instructions:
@@ -90,6 +89,7 @@ Calculating the match percentage between the resume and job description, provide
 Identify any missing keywords in the resume relevant to the job description.
 Your evaluation should be thorough, precise, and objective. It should ensure that the most qualified candidates are accurately identified based on their resume content concerning the job criteria.
 """
+
 input_prompt4 = """
 Role: Skilled ATS (Applicant Tracking System) scanner with a deep understanding of the technology and Technical skills mentioned in the job description and ATS functionality
 Task: Evaluate the provided resume against the job description.
@@ -101,6 +101,7 @@ Instructions:
 4. Create a table that includes the top 5 skills, the required years of experience (JD), the candidate's years of experience (Resume), and the relevant projects with the year they have worked on.
 5. Share final thoughts on the candidate's suitability for the role.
 """
+
 input_prompt5 = """
 Role: AI Assistant
 Task: Summarize the provided job description.
@@ -108,6 +109,7 @@ Objective: Provide a concise summary of the job description.
 Instructions:
 Summarize the key responsibilities, required skills, and qualifications mentioned in the job description.
 """
+
 input_prompt6 = """
 Role: Skill Analyst
 Task: Perform a Skill Analysis
