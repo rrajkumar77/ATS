@@ -14,6 +14,7 @@ def get_gemini_response(input, pdf_content, prompt):
     model = genai.GenerativeModel('gemini-pro')
     response = model.generate_content([input, pdf_content, prompt])
     return response.text
+
 '''
 def input_file_setup(uploaded_file):
     if uploaded_file is not None:
@@ -30,34 +31,29 @@ def input_file_setup(uploaded_file):
         return file_content
     else:
         raise FileNotFoundError("No file uploaded")
+'''
+
+def input_file_setup(uploaded_file):
+    if uploaded_file is not None:
+        file_type = uploaded_file.type
+        if file_type == "application/pdf":
+            document = fitz.open(stream=uploaded_file.read(), filetype="pdf")
+            text_parts = [page.get_text() for page in document]
+            file_content = " ".join(text_parts)
+        elif file_type in ["application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]:
+            doc = docx.Document(uploaded_file)
+            file_content = "\n".join([para.text for para in doc.paragraphs])
+        elif file_type == "text/plain":
+            file_content = uploaded_file.read().decode("utf-8")
+        else:
+            raise ValueError("Unsupported file type")
+        return file_content
+    else:
+        raise FileNotFoundError("No file uploaded")
 
 def extract_skills_from_resume(file_content):
     skills = ["Python", "Machine Learning", "Data Analysis", "Project Management"]
     return skills
-'''
-def input_file_setup(uploaded_file):
-    if uploaded_file is not None:
-        if uploaded_file.type == "application/pdf":
-            # Read the PDF file
-            document = pdf.PdfFileReader(uploaded_file)
-            text_parts = []
-            for page_num in range(document.getNumPages()):
-                page = document.getPage(page_num)
-                text_parts.append(page.extract_text())
-            doc_text_content = " ".join(text_parts)
-        elif uploaded_file.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
-            # Read the DOCX file
-            document = docx.Document(uploaded_file)
-            text_parts = [para.text for para in document.paragraphs]
-            doc_text_content = " ".join(text_parts)
-        elif uploaded_file.type == "text/plain":
-            # Read the TXT file
-            doc_text_content = uploaded_file.read().decode("utf-8")
-        else:
-            raise ValueError("Unsupported file type")
-        return doc_text_content
-    else:
-        raise FileNotFoundError("No file uploaded")
 
 ## Streamlit App
 
