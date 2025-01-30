@@ -101,7 +101,7 @@ Role: Skilled ATS (Applicant Tracking System) scanner with a deep understanding 
 Task: Evaluate the provided resume against the job description.
 Objective: Assess the compatibility of the resume with the job description from a Technical Expert perspective.
 Instructions:
-1. Calculate the match percentage between the resume and job description, provide a percentage number 
+1. Calculate the match percentage between the resume and job description, and provide a percentage number 
 2. Explain the match and the gap
 3. Identify missing keywords or skills from the resume compared to the job description.
 4. Create a table that includes the top 5 skills, the required years of experience (JD), the candidate's years of experience (Resume), and the relevant projects with the year they have worked on.
@@ -122,13 +122,13 @@ Task: Perform a Skill Analysis
 Objective: Analyze the provided job description (JD) and resume to determine the match status of skills.
 Instructions:
 Input: top_skills
-Process: For each skill in the top_skills, check if it is present in the resume.
+Process: For each skill in the top_skills, check if the skill mentioned is/are present in the resume or not.
 Output:
 Provide in a Table format 
 Skill: The skill being analyzed.
 Match Status: "Yes" if the skill is present in the resume, otherwise "No".
-Relevant Projects: List relevant projects from the resume (e.g., "Project A, Project B").
-Years of Experience: Total years of experience related to the skill (e.g., "3 years").
+Relevant Projects: List relevant projects from the resume (e.g., "Project A, Project B") or else NA.
+Years of Experience: Total years of experience related to the skill (e.g., "3 years") or else NA.
 """
 
 input_prompt7 = """
