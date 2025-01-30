@@ -5,6 +5,9 @@ from dotenv import load_dotenv
 import fitz
 import docx
 
+# Set page configuration at the very beginning
+st.set_page_config(page_title="Resume Expert")
+
 load_dotenv()
 
 os.getenv("GOOGLE_API_KEY")
@@ -14,24 +17,6 @@ def get_gemini_response(input, pdf_content, prompt):
     model = genai.GenerativeModel('gemini-pro')
     response = model.generate_content([input, pdf_content, prompt])
     return response.text
-
-'''
-def input_file_setup(uploaded_file):
-    if uploaded_file is not None:
-        file_type = uploaded_file.type
-        if file_type == "application/pdf":
-            document = fitz.open(stream=uploaded_file.read(), filetype="pdf")
-            text_parts = [page.get_text() for page in document]
-            file_content = " ".join(text_parts)
-        elif file_type in ["application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]:
-            doc = docx.Document(uploaded_file)
-            file_content = "\n".join([para.text for para in doc.paragraphs])
-        else:
-            raise ValueError("Unsupported file type")
-        return file_content
-    else:
-        raise FileNotFoundError("No file uploaded")
-'''
 
 def input_file_setup(uploaded_file):
     if uploaded_file is not None:
@@ -57,19 +42,17 @@ def extract_skills_from_resume(file_content):
 
 ## Streamlit App
 
-st.set_page_config(page_title="Resume Expert")
-
 st.header("JobFit Analyzer")
 st.subheader('This Application helps you to evaluate the Resume Review with the Job Description')
 
-uploaded_jd = st.file_uploader("Upload Job Description (PDF, DOC, DOCX)...", type=["pdf", "doc", "docx"])
+uploaded_jd = st.file_uploader("Upload Job Description (PDF, DOC, DOCX, TXT)...", type=["pdf", "doc", "docx", "txt"])
 jd_content = ""
 if uploaded_jd is not None:
     jd_content = input_file_setup(uploaded_jd)
     st.write("Job Description Uploaded Successfully")
 submit7 = st.button("JD Summarization")
 
-uploaded_resume = st.file_uploader("Upload your Resume (PDF, DOC, DOCX)...", type=["pdf", "doc", "docx"])
+uploaded_resume = st.file_uploader("Upload your Resume (PDF, DOC, DOCX, TXT)...", type=["pdf", "doc", "docx", "txt"])
 resume_content = ""
 if uploaded_resume is not None:
     resume_content = input_file_setup(uploaded_resume)
