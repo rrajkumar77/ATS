@@ -113,12 +113,13 @@ Role: Skill Analyst
 Task: Perform a Skill Analysis
 Objective: Analyze the provided job description (JD) and resume to determine the match status of skills.
 Instructions:
-Input: top_skills, input_text
-Process: For each skill in the job description, check if it is present in the resume.
+Input: top_skills
+Process: For each skill in the top_skills, check if it is present in the resume.
 Output:
+Provide in a Table format 
 Skill: The skill being analyzed.
 Match Status: "Yes" if the skill is present in the resume, otherwise "No".
-Relevant Projects: List of relevant projects from the resume (e.g., "Project A, Project B").
+Relevant Projects: List relevant projects from the resume (e.g., "Project A, Project B").
 Years of Experience: Total years of experience related to the skill (e.g., "3 years").
 """
 if submit1:
