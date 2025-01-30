@@ -101,7 +101,6 @@ Instructions:
 4. Create a table that includes the top 5 skills, the required years of experience (JD), the candidate's years of experience (Resume), and the relevant projects with the year they have worked on.
 5. Share final thoughts on the candidate's suitability for the role.
 """
-
 input_prompt5 = """
 Role: AI Assistant
 Task: Summarize the provided job description.
@@ -109,7 +108,19 @@ Objective: Provide a concise summary of the job description.
 Instructions:
 Summarize the key responsibilities, required skills, and qualifications mentioned in the job description.
 """
-
+input_prompt6 = """
+Role: Skill Analyst
+Task: Perform a Skill Analysis
+Objective: Analyze the provided job description (JD) and resume to determine the match status of skills.
+Instructions:
+Input: top_skills, input_text
+Process: For each skill in the job description, check if it is present in the resume.
+Output:
+Skill: The skill being analyzed.
+Match Status: "Yes" if the skill is present in the resume, otherwise "No".
+Relevant Projects: List of relevant projects from the resume (e.g., "Project A, Project B").
+Years of Experience: Total years of experience related to the skill (e.g., "3 years").
+"""
 if submit1:
     if uploaded_file is not None:
         pdf_content = input_pdf_setup(uploaded_file)
@@ -154,22 +165,13 @@ elif submit5:
         st.write(response)
     else:
         st.write("Please upload a PDF file to proceed.")
-
+        
 elif submit6:
     if uploaded_file is not None:
         pdf_content = input_pdf_setup(uploaded_file)
-        resume_skills = extract_skills_from_resume(pdf_content)
-        required_skills = [skill.strip() for skill in top_skills.split(",")]
-
-        skill_analysis = []
-        for skill in required_skills:
-            match_status = "Yes" if skill in resume_skills else "No"
-            relevant_projects = "Project A, Project B"  # Placeholder for actual project extraction logic
-            years_of_experience = "3 years"  # Placeholder for actual experience extraction logic
-            skill_analysis.append([skill, match_status, relevant_projects, years_of_experience])
-
-        st.subheader("Skill Analysis")
-        st.table(skill_analysis)
+        response = get_gemini_response(input_promp6, pdf_content, input_text)
+        st.subheader("Top Skill Analysis")
+        st.write(response)
     else:
         st.write("Please upload a PDF file to proceed.")
 
