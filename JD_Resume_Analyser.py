@@ -112,23 +112,40 @@ input_prompt5 = """
 Role: AI Assistant
 Task: Summarize the provided job description.
 Objective: Provide a concise summary of the job description.
-Instructions:
-Summarize the key responsibilities, required skills, and qualifications mentioned in the job description.
+Instructions: Please summarize the following job description and provide detailed insights required for the job. Include key responsibilities, required qualifications, required skills, preferred skills, and any other important details.
+
 """
 
+'''
 input_prompt6 = """
 Role: Skill Analyst
 Task: Perform a Skill Analysis
 Objective: Analyze the resume to determine the match status of skills.
 Instructions:
 Input: top_skills, Do not give any other skills that is not entered. 
-Process: only for each skill entered in the top_skills, check if the skill mentioned is present in the resume or not.
+Process: only for each skill entered in the top_skills, check if the skill mentioned is present or not in the resume.
 Output:
 Provide in a Table format 
 Skill: The skill being analyzed as per top_skills input.
 Match Status: "Yes" if the skill is present in the resume, otherwise "No".
 Relevant Projects: List relevant projects from the resume (e.g., "Project A, Project B") or else NA.
 Years of Experience: Total years of experience related to the skill in the project (e.g., "3 years") or else NA.
+"""
+'''
+
+input_prompt6 = """
+Role: Skill Analyst
+Task: Perform a Skill Analysis
+Objective: Analyze the resume to determine the match status of skills.
+Instructions:
+
+Input: Provide a list of top skills to be analyzed. Only these skills will be considered.
+Process: For each skill in the provided list, check if the skill is mentioned in the resume.
+Output: Provide the results in a table format with the following columns:
+Skill: The skill being analyzed as per the input list.
+Match Status: "Yes" if the skill is present in the resume, otherwise "No".
+Relevant Projects: List relevant projects from the resume (e.g., "Project A, Project B") or "NA" if not applicable.
+Years of Experience: Total years of experience related to the skill in the projects (e.g., "3 years") or "NA" if not applicable.
 """
 
 input_prompt7 = """
