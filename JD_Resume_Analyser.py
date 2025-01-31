@@ -116,23 +116,6 @@ Instructions: Please summarize the following job description and provide detaile
 
 """
 
-'''
-input_prompt6 = """
-Role: Skill Analyst
-Task: Perform a Skill Analysis
-Objective: Analyze the resume to determine the match status of skills.
-Instructions:
-Input: top_skills, Do not give any other skills that is not entered. 
-Process: only for each skill entered in the top_skills, check if the skill mentioned is present or not in the resume.
-Output:
-Provide in a Table format 
-Skill: The skill being analyzed as per top_skills input.
-Match Status: "Yes" if the skill is present in the resume, otherwise "No".
-Relevant Projects: List relevant projects from the resume (e.g., "Project A, Project B") or else NA.
-Years of Experience: Total years of experience related to the skill in the project (e.g., "3 years") or else NA.
-"""
-'''
-
 input_prompt6 = """
 Role: Skill Analyst
 Task: Perform a Skill Analysis
