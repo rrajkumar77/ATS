@@ -119,12 +119,13 @@ Please summarize the job description and provide detailed insights about the pos
 Include key responsibilities, required qualifications, necessary skills, preferred skills, and any other important details.
 """
 
+'''
 input_prompt6 = """
 Role: Skill Analyst
-Task: Perform a Skill Analysis for the top_skills:
+Task: Top Skills Required for the Job is entered in "top_skills", Perform a Skill Analysis for the top_skills entered by the user:
 
 Instructions:
-1. IMPORTANT: Only analyze the top_skills explicitly listed above. Do not include any other skills from the resume.
+1. IMPORTANT: Only analyze the top_skills explicitly entered above. Do not include any other skills from the resume.
 2. For each listed top_skills, check if it appears in the resume.
 3. Provide results in a table with:
    - Skill: Only the top_skills listed
@@ -134,6 +135,39 @@ Instructions:
 
 NOTE: Any skills not explicitly listed above should be ignored, even if present in the resume.
 """
+'''
+
+if submit6 and top_skills:
+    # Clean and validate skills input
+    skills_list = [skill.strip() for skill in top_skills.split(',') if skill.strip()]
+    
+input_prompt6 = f"""
+Role: Skill Analyst
+Task: Analyze ONLY the following skills from the resume: {', '.join(skills_list)}
+
+Instructions:
+1. IMPORTANT: Analyze ONLY these specific skills: {', '.join(skills_list)}
+2. For each skill listed above:
+   - Check if it appears in the resume (case insensitive)
+   - Identify relevant projects if mentioned
+   - Calculate years of experience if mentioned
+
+Output Format:
+Present results in a table with exactly {len(skills_list)} rows (one for each input skill):
+| Skill | Match Status | Relevant Projects | Years of Experience |
+Note: 
+- Include ONLY the skills listed above
+- Use "NA" if project or experience information is not found
+- Match Status should be "Yes" or "No" only
+
+Additional Rules:
+- Do not include any skills not listed above
+- Do not add any explanatory text before or after the table
+- Strictly maintain {len(skills_list)} rows in the output
+"""
+    
+
+
 input_prompt7 = """
 Role: AI Assistant
 Task: Answer the user's specific query based on the provided job description and resume.
