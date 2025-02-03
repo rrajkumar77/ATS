@@ -74,16 +74,18 @@ Role: Experienced Technical Human Resource Manager with expertise in technical e
 Task: Review the provided resume against the job description.
 Objective: Evaluate whether the candidate's profile aligns with the role.
 Instructions:
-Provide the match percentage between the resume and job description
-Provide a professional evaluation of the candidate's profile.
-Highlight the strengths and weaknesses of the applicant concerning the specified job requirements.
+1. Provide the match percentage between the resume and job description
+2. Provide a professional evaluation of the candidate's profile.
+3. Highlight the strengths and weaknesses of the applicant concerning the specified job requirements.
+4. Provide career guidance 
 """
 
 input_prompt2 = """
 Can you share some technical questions to evaluate the candidate based on the above JD and Resume uploaded
 Have the questions in sequence order from project start to finish.
-Classify questions from JD and Resume 
-also provide answers so the recruiter can validate 
+1. Questions from JD :  
+2. Questions from Resume : 
+also, provide answers so the recruiter can validate 
 """
 
 input_prompt3 = """
@@ -91,9 +93,9 @@ Role: Skilled ATS (Applicant Tracking System) scanner with expertise in domain a
 Task: Evaluate the provided resume against the job description.
 Objective: Assess the compatibility of the resume with the job description from a Domain Expert perspective. (Eg: Business Analyst(BA), Functional Manger or Project Manager)
 Instructions:
-Calculating the match percentage between the resume and job description, provide a percentage number and explanation.
-Identify any missing keywords in the resume relevant to the job description.
-Your evaluation should be thorough, precise, and objective. It should ensure that the most qualified candidates are accurately identified based on their resume content concerning the job criteria.
+Calculate the match percentage between the resume and job description, Provide a percentage number and explanation.
+Identify any relevant keywords missing from the resume that pertain to the job description.
+Your evaluation must be thorough, precise, and objective. It should ensure that the most qualified candidates are accurately identified based on their resume content in relation to the job criteria.
 """
 
 input_prompt4 = """
@@ -112,25 +114,27 @@ input_prompt5 = """
 Role: AI Assistant
 Task: Summarize the provided job description.
 Objective: Provide a concise summary of the job description.
-Instructions: Please summarize the following job description and provide detailed insights required for the job. Include key responsibilities, required qualifications, required skills, preferred skills, and any other important details.
-
+Instructions: 
+Please summarize the job description and provide detailed insights about the position. 
+Include key responsibilities, required qualifications, necessary skills, preferred skills, and any other important details.
 """
 
 input_prompt6 = """
 Role: Skill Analyst
-Task: Perform a Skill Analysis
-Objective: Analyze the resume to determine the match status of skills.
+Task: Perform a Skill Analysis for the following skills ONLY:
+[List your specific skills here, e.g., Python, PySpark]
+
 Instructions:
+1. IMPORTANT: Only analyze the skills explicitly listed above. Do not include any other skills from the resume.
+2. For each listed skill, check if it appears in the resume.
+3. Provide results in a table with:
+   - Skill: Only the skills listed above
+   - Match Status: "Yes" if present, "No" if not
+   - Relevant Projects: Project names where skill was used, or "NA"
+   - Years of Experience: Total years using the skill, or "NA"
 
-Input: Provide a list of top skills to be analyzed. Only these skills will be considered.
-Process: For each skill in the provided list, check if the skill is mentioned in the resume.
-Output: Provide the results in a table format with the following columns:
-Skill: The skill being analyzed as per the input list.
-Match Status: "Yes" if the skill is present in the resume, otherwise "No".
-Relevant Projects: List relevant projects from the resume (e.g., "Project A, Project B") or "NA" if not applicable.
-Years of Experience: Total years of experience related to the skill in the projects (e.g., "3 years") or "NA" if not applicable.
+NOTE: Any skills not explicitly listed above should be ignored, even if present in the resume.
 """
-
 input_prompt7 = """
 Role: AI Assistant
 Task: Answer the user's specific query based on the provided job description and resume.
@@ -138,7 +142,6 @@ Objective: Provide a detailed and relevant response to the user's question.
 Instructions:
 1. Read the user's query carefully.
 2. Use the provided job description and resume content to generate a precise and helpful answer.
-3. If the query is about skills, match percentage, or any specific aspect, provide detailed information accordingly.
 """
 
 if submit1:
