@@ -132,7 +132,7 @@ Instructions:
 2. For each skill listed above:
    - Check if it appears in the resume (case insensitive)
    - Identify relevant projects if mentioned
-   - Calculate years of experience if mentioned
+   - Years worked in that project
 
 Output Format:
 Present results in a table with exactly {len(skills_list)} rows (one for each input skill):
