@@ -121,14 +121,13 @@ Include key responsibilities, required qualifications, necessary skills, preferr
 
 input_prompt6 = """
 Role: Skill Analyst
-Task: Perform a Skill Analysis for the following skills ONLY:
-[List your specific skills here: "top_skills" ]
+Task: Perform a Skill Analysis for the top_skills:
 
 Instructions:
-1. IMPORTANT: Only analyze the skills explicitly listed above. Do not include any other skills from the resume.
-2. For each listed skill, check if it appears in the resume.
+1. IMPORTANT: Only analyze the top_skills explicitly listed above. Do not include any other skills from the resume.
+2. For each listed top_skills, check if it appears in the resume.
 3. Provide results in a table with:
-   - Skill: Only the skills listed above
+   - Skill: Only the top_skills listed
    - Match Status: "Yes" if present, "No" if not
    - Relevant Projects: Project names where skill was used, or "NA"
    - Years of Experience: Total years using the skill, or "NA"
