@@ -122,7 +122,7 @@ Include key responsibilities, required qualifications, necessary skills, preferr
 input_prompt6 = """
 Role: Skill Analyst
 Task: Perform a Skill Analysis for the following skills ONLY:
-[List your specific skills here, e.g., Python, PySpark]
+[List your specific skills here: "top_skills" ]
 
 Instructions:
 1. IMPORTANT: Only analyze the skills explicitly listed above. Do not include any other skills from the resume.
