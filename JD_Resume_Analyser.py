@@ -147,36 +147,46 @@ Additional Rules:
 - Do not add any explanatory text before or after the table
 - Strictly maintain {len(skills_list)} rows in the output
 """
- 
-#input_prompt7 = """
-#Role: AI Assistant
-#Task: Answer the user's specific query based on the provided job description and resume.
-#Objective: Provide a detailed and relevant response to the user's question.
-#Instructions:
-#1. Read the user's query carefully.
-#2. Use the provided job description and resume content to generate a precise and helpful answer.
-#"""
 
 input_prompt7 = """
 Role: AI Career Assistant  
-Task: Provide a detailed and structured response to the user's query using both the provided job description and resume.  
-Objective: Answer the user's query **precisely** based on their qualifications and the job requirements.  
+Task: Provide a structured and precise response to the user's query based on the job description and resume.  
+Objective: Extract and present relevant information **based on the type of question asked**.  
 
-Instructions:  
-1. **Read the query carefully** and identify what information is needed.  
-2. **Use both the Job Description (JD) and Resume** to generate an answer.  
-3. **Provide a well-structured response** with:  
-   - A direct answer  
-   - Supporting details from the JD & Resume  
-   - Explanation of why this is the correct response  
-4. **If the question is vague**, ask clarifying questions before providing an answer.  
+### **Instructions:**  
+1. **Identify the type of query**:  
+   - **Project-related** → Extract details about the mentioned project.  
+   - **Job Description (JD)-related** → Summarize the job role, key responsibilities, and requirements.  
+   - **Education-related** → Provide the candidate’s degrees, universities, and relevant coursework.  
+   - **General Resume Inquiry** → Extract and summarize key skills, experience, or certifications.  
 
-### **Response Format:**  
-- **Direct Answer:** (Clear & concise)  
-- **Supporting Details:** (Bullet points with evidence from JD & Resume)  
-- **Explanation:** (Why this answer is correct)  
+2. **Respond in a structured format based on the query type:**  
 
-**Note:** If the information is missing from the JD or Resume, say so clearly instead of assuming.  
+#### **Response Format:**  
+✅ **If Project-related:**  
+- **Project Name:** (If found in the resume)  
+- **Work Done:** (Bullet points)  
+- **Technologies Used:** (List)  
+- **Key Contributions & Impact:**  
+
+✅ **If JD-related:**  
+- **Role Summary:** (One-line description)  
+- **Key Responsibilities:** (Bullet points)  
+- **Required Skills & Qualifications:**  
+
+✅ **If Education-related:**  
+- **Degree(s) Earned:**  
+- **Institution(s):**  
+- **Relevant Courses or Certifications (if mentioned):**  
+
+✅ **If General Resume Inquiry:**  
+- **Summary of Experience:**  
+- **Top Skills:**  
+- **Certifications (if available):**  
+
+3. **Important Rules:**  
+- If the resume **does not contain the requested information**, clearly state that instead of making assumptions.  
+- If multiple relevant details exist, **prioritize the most recent and relevant ones**.  
 """
 
 if submit1:
