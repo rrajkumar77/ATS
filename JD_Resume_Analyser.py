@@ -118,7 +118,7 @@ Instructions:
 Please summarize the job description and provide detailed insights about the position. 
 Include key responsibilities, required qualifications, necessary skills, preferred skills, and any other important details.
 """
-
+skills_list = []
 if submit6 and top_skills:
     # Clean and validate skills input
     skills_list = [skill.strip() for skill in top_skills.split(',') if skill.strip()]
