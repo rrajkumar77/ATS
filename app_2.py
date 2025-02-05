@@ -122,6 +122,8 @@ Objective: Assess the compatibility of the resume with the job description.
 Rewrite my bullet points using strong action verbs and quantify my achievements where applicable. 
 Optimize my resume summary to clearly highlight my value proposition in a concise, impactful way. 
 Finally, validate that my resume is saved in a compatible format (e.g., .docx or .pdf) and check for any ATS rejection issues to ensure it passes screening successfully."
+7. Cover Letter Drafting: Write a compelling cover letter that effectively demonstrates how the skills listed in the resume align with the job requirements.  
+8. Skills Comparison Table: Create a table listing the skills required in the job description and how the candidate’s skills align with them.  
 """
 
 '''
