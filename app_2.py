@@ -117,6 +117,11 @@ Objective: Assess the compatibility of the resume with the job description.
 "Check my resume against common ATS rejection issues and suggest fixes."
 "Ensure my resume uses a standard file format (e.g., .docx, .pdf) that works with ATS."
 "Validate that my resume uses standard section headings (e.g., 'Work Experience' instead of 'Professional Journey')."
+6. ATS compliant resume
+" Based on the above adjust resume to meet ATS best practices by using standard fonts, bullet points, and section headings. 
+Rewrite my bullet points using strong action verbs and quantify my achievements where applicable. 
+Optimize my resume summary to clearly highlight my value proposition in a concise, impactful way. 
+Finally, validate that my resume is saved in a compatible format (e.g., .docx or .pdf) and check for any ATS rejection issues to ensure it passes screening successfully."
 """
 
 '''
