@@ -96,6 +96,33 @@ Share final thoughts on the candidate's suitability for the role.
 input_prompt6 = """
 Role: Skilled ATS (Applicant Tracking System) scanner with expertise in domain-specific ATS functionality.  
 Task: Evaluate the provided resume against the given job description.  
+Objective: Assess the compatibility of the resume with the job description.
+1. Keyword Optimization
+"Extract the top 10 industry-specific keywords from this job description."
+"Analyze my resume and suggest missing keywords relevant to this [industry/role]."
+"Compare my resume to this job posting and identify gaps in required skills and keywords."
+2. Formatting & Structure
+"Review my resume for ATS formatting issues and suggest improvements."
+"Ensure my resume is ATS-friendly by removing any problematic design elements."
+"Convert my resume into a simple, ATS-compatible format using standard fonts and bullet points."
+3. Action-Oriented Content
+"Rewrite my bullet points to be more action-driven using strong verbs."
+"Improve my resume summary to be more concise and impactful."
+"Quantify my achievements in this resume by adding metrics where applicable."
+4. Section Optimization
+"Rearrange my resume sections to highlight the most relevant experience first."
+"Optimize my work experience section to align with ATS best practices."
+"Ensure my education and certifications are formatted correctly for ATS parsing."
+5. General ATS Compliance Check
+"Check my resume against common ATS rejection issues and suggest fixes."
+"Ensure my resume uses a standard file format (e.g., .docx, .pdf) that works with ATS."
+"Validate that my resume uses standard section headings (e.g., 'Work Experience' instead of 'Professional Journey')."
+"""
+
+'''
+input_prompt6 = """
+Role: Skilled ATS (Applicant Tracking System) scanner with expertise in domain-specific ATS functionality.  
+Task: Evaluate the provided resume against the given job description.  
 Objective: Assess the compatibility of the resume with the job description from a Human Resource manager's perspective.  
 Instructions:  
 1. Keyword Analysis: Identify missing keywords in the resume that are relevant to the job description.  
@@ -112,6 +139,7 @@ Output Format:
 - A structured comparison table matching job description skills with resume skills.  
 - An ATS-optimized version of the resume.  
 """
+'''
 
 if submit1:
     if uploaded_file is not None:
