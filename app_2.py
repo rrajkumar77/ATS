@@ -98,7 +98,15 @@ Role: Skilled ATS (Applicant Tracking System) scanner with expertise in domain-s
 Task: Evaluate the provided resume against the given job description.  
 Objective:
 1. Cover Letter: Write a compelling cover letter that effectively demonstrates how the skills listed in the resume align with the job requirements.  
-2. Skills Comparison Table: Create a table listing the skills required in the job description and how the candidate’s skills align with them. 
+2. Skills Comparison Table: "Create a Skills Comparison Table that directly matches the key Job Description Skills with my own skills and experience from my resume. 
+Clearly demonstrate how my past projects and experience align with each required skill to showcase me as the best fit for the role.
+The table should be structured as follows:
+Job Description Skills	|| My Skills & Experience
+[Skill from JD]	|| [My relevant experience showcasing this skill]
+[Skill from JD]	|| [My relevant experience showcasing this skill]
+Ensure that my responses use strong action verbs, highlight quantifiable achievements, and reflect real impact-driven experiences from my past projects. 
+The goal is to give recruiters full confidence that I am the right fit for the job."
+
 3. "Compare my resume against this job description and optimize it for a perfect match with ATS compliance. Extract the top 10 industry-specific keywords from the JD and identify any missing or underutilized keywords in my resume. Ensure my resume highlights the most relevant skills, experience, and qualifications from the JD to align closely with the employer’s requirements.
 Optimize formatting and structure to follow ATS best practices by using standard fonts, clear bullet points, and proper section headings. Remove any design elements that may hinder ATS readability.
 Enhance my work experience section by rewriting bullet points with strong action verbs and adding quantifiable metrics to demonstrate impact. Improve my summary to be concise, compelling, and aligned with the JD’s core expectations.
