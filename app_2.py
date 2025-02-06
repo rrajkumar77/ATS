@@ -107,16 +107,16 @@ The table should be structured as follows:
 Job Description Skills	|| My Skills & Experience
 [Skill from JD]	|| [My relevant experience showcasing this skill]
 [Skill from JD]	|| [My relevant experience showcasing this skill]
-Ensure that my responses use strong action verbs, highlight quantifiable achievements, and reflect real impact-driven experiences from my past projects. 
+Please make sure that my responses use strong action verbs, highlight quantifiable achievements, and reflect real impact-driven experiences from my past projects. 
 The goal is to give recruiters full confidence that I am the right fit for the job."
-3. Optimise Resume: 
-"Compare my resume against this job description and optimize it for a perfect match with ATS compliance. 
-Extract the top 10 industry-specific keywords from the JD and identify any missing or underutilized keywords in my resume. 
-Ensure my resume highlights the most relevant skills, experience, and qualifications from the JD to align closely with the employer’s requirements.
-Optimize formatting and structure to follow ATS best practices by using standard fonts, clear bullet points, and proper section headings. Remove any design elements that may hinder ATS readability.
-Enhance my work experience section by rewriting bullet points with strong action verbs and adding quantifiable metrics to demonstrate impact. Improve my summary to be concise, compelling, and aligned with the JD’s core expectations.
-Validate that my resume follows standard ATS-friendly section headings (e.g., 'Work Experience' instead of 'Professional Journey') and is saved in a compatible format (.docx or .pdf) to avoid parsing errors. Finally, perform a comprehensive ATS compliance check to identify and fix any issues that could prevent my resume from passing the ATS screening process."
-Finally, validate that my resume is saved in a compatible format (e.g., .docx or .pdf) and check for any ATS rejection issues to ensure it passes screening successfully."
+3. Optimise Resume: Please ensure that you perform all of the following.
+1. Compare my resume with this job description and optimize it for a perfect match with ATS compliance. 
+2. Extract the top 10 industry-specific keywords from the JD and identify any missing or underutilized keywords in my resume. 
+3. Ensure my resume highlights the most relevant skills, experience, and qualifications from the JD to closely align with the employer’s requirements. 
+4. Optimize the formatting and structure to follow ATS best practices by using standard fonts, clear bullet points, and proper section headings. Remove any design elements that may hinder ATS readability. 
+5. Enhance my work experience section by rewriting bullet points with strong action verbs and adding quantifiable metrics to demonstrate impact. Improve my summary to be concise, compelling, and aligned with the JD’s core expectations. 
+6. Validate that my resume follows standard ATS-friendly section headings (e.g., 'Work Experience' instead of 'Professional Journey') and is saved in a compatible format (.docx or .pdf) to avoid parsing errors. 
+7. Finally, conduct a comprehensive ATS compliance check to identify and resolve any issues that could prevent my resume from passing the ATS screening process.
 """
 
 
