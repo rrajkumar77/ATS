@@ -96,34 +96,14 @@ Share final thoughts on the candidate's suitability for the role.
 input_prompt6 = """
 Role: Skilled ATS (Applicant Tracking System) scanner with expertise in domain-specific ATS functionality.  
 Task: Evaluate the provided resume against the given job description.  
-Objective: Assess the compatibility of the resume with the job description.
-1. Keyword Optimization
-"Extract the top 10 industry-specific keywords from this job description."
-"Analyze my resume and suggest missing keywords relevant to this [industry/role]."
-"Compare my resume to this job posting and identify gaps in required skills and keywords."
-2. Formatting & Structure
-"Review my resume for ATS formatting issues and suggest improvements."
-"Ensure my resume is ATS-friendly by removing any problematic design elements."
-"Convert my resume into a simple, ATS-compatible format using standard fonts and bullet points."
-3. Action-Oriented Content
-"Rewrite my bullet points to be more action-driven using strong verbs."
-"Improve my resume summary to be more concise and impactful."
-"Quantify my achievements in this resume by adding metrics where applicable."
-4. Section Optimization
-"Rearrange my resume sections to highlight the most relevant experience first."
-"Optimize my work experience section to align with ATS best practices."
-"Ensure my education and certifications are formatted correctly for ATS parsing."
-5. General ATS Compliance Check
-"Check my resume against common ATS rejection issues and suggest fixes."
-"Ensure my resume uses a standard file format (e.g., .docx, .pdf) that works with ATS."
-"Validate that my resume uses standard section headings (e.g., 'Work Experience' instead of 'Professional Journey')."
-6. ATS compliant resume
-" Based on the above adjust resume to meet ATS best practices by using standard fonts, bullet points, and section headings. 
-Rewrite my bullet points using strong action verbs and quantify my achievements where applicable. 
-Optimize my resume summary to clearly highlight my value proposition in a concise, impactful way. 
+Objective:
+1. Cover Letter: Write a compelling cover letter that effectively demonstrates how the skills listed in the resume align with the job requirements.  
+2. Skills Comparison Table: Create a table listing the skills required in the job description and how the candidate’s skills align with them. 
+3. "Compare my resume against this job description and optimize it for a perfect match with ATS compliance. Extract the top 10 industry-specific keywords from the JD and identify any missing or underutilized keywords in my resume. Ensure my resume highlights the most relevant skills, experience, and qualifications from the JD to align closely with the employer’s requirements.
+Optimize formatting and structure to follow ATS best practices by using standard fonts, clear bullet points, and proper section headings. Remove any design elements that may hinder ATS readability.
+Enhance my work experience section by rewriting bullet points with strong action verbs and adding quantifiable metrics to demonstrate impact. Improve my summary to be concise, compelling, and aligned with the JD’s core expectations.
+Validate that my resume follows standard ATS-friendly section headings (e.g., 'Work Experience' instead of 'Professional Journey') and is saved in a compatible format (.docx or .pdf) to avoid parsing errors. Finally, perform a comprehensive ATS compliance check to identify and fix any issues that could prevent my resume from passing the ATS screening process."
 Finally, validate that my resume is saved in a compatible format (e.g., .docx or .pdf) and check for any ATS rejection issues to ensure it passes screening successfully."
-7. Cover Letter Drafting: Write a compelling cover letter that effectively demonstrates how the skills listed in the resume align with the job requirements.  
-8. Skills Comparison Table: Create a table listing the skills required in the job description and how the candidate’s skills align with them.  
 """
 
 
