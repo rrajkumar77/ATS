@@ -109,14 +109,18 @@ Job Description Skills	|| My Skills & Experience
 [Skill from JD]	|| [My relevant experience showcasing this skill]
 Please make sure that my responses use strong action verbs, highlight quantifiable achievements, and reflect real impact-driven experiences from my past projects. 
 The goal is to give recruiters full confidence that I am the right fit for the job."
-3. Optimise Resume: Please ensure that you perform all of the following.
-1. Compare my resume with this job description and optimize it for a perfect match with ATS compliance. 
-2. Extract the top 10 industry-specific keywords from the JD and identify any missing or underutilized keywords in my resume. 
-3. Ensure my resume highlights the most relevant skills, experience, and qualifications from the JD to closely align with the employer’s requirements. 
-4. Optimize the formatting and structure to follow ATS best practices by using standard fonts, clear bullet points, and proper section headings. Remove any design elements that may hinder ATS readability. 
-5. Enhance my work experience section by rewriting bullet points with strong action verbs and adding quantifiable metrics to demonstrate impact. Improve my summary to be concise, compelling, and aligned with the JD’s core expectations. 
-6. Validate that my resume follows standard ATS-friendly section headings (e.g., 'Work Experience' instead of 'Professional Journey') and is saved in a compatible format (.docx or .pdf) to avoid parsing errors. 
-7. Finally, conduct a comprehensive ATS compliance check to identify and resolve any issues that could prevent my resume from passing the ATS screening process.
+
+3. Optimise Resume: 
+"Update and optimize my resume to fit into one page while maintaining ATS compliance and ensuring it highlights my most relevant skills, experience, and achievements for the job.
+Prioritize the most important information based on the job description, ensuring my resume aligns with the key qualifications.
+Use strong action verbs to enhance my job descriptions and make my contributions more compelling.
+Highlight quantifiable achievements by incorporating numbers, percentages, or measurable outcomes to demonstrate my impact.
+Reflect real impact-driven experiences that showcase how my past work directly contributed to business goals.
+Condense less relevant details while maintaining clarity, effectiveness, and readability.
+Streamline formatting by using a clear structure, standard fonts, bullet points, and concise language.
+Remove unnecessary sections or redundant information while keeping essential ATS-friendly elements like Work Experience, Skills, and Education intact.
+Ensure keyword optimization so my resume remains a strong match for ATS screening.
+The final result should be a concise, powerful, and ATS-optimized one-page resume that effectively showcases my qualifications for the role."
 """
 
 
