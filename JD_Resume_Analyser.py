@@ -152,21 +152,6 @@ input_prompt7 = """
 Role: AI Career Assistant  
 Task: Provide a structured and precise response to the user's query based on the job description and resume.  
 Objective: Extract and present relevant information **based on the type of question asked**.  
-
-if input_prompt:
-    # Append user's message
-    st.session_state.messages.append({"role": "user", "content": user_input})
-    with st.chat_message("user"):
-        st.markdown(user_input)
-
-    # Generate assistant's response
-    assistant_response = get_response(user_input)
-    st.session_state.messages.append({"role": "assistant", "content": assistant_response})
-
-    with st.chat_message("assistant"):
-        st.markdown(assistant_response)
-
-"""
 ### **Instructions:**  
 1. **Identify the type of query**:  
    - **Project-related** → Extract details about the mentioned project.  
@@ -175,7 +160,6 @@ if input_prompt:
    - **General Resume Inquiry** → Extract and summarize key skills, experience, or certifications.  
 
 2. **Respond in a structured format based on the query type:**  
-
 #### **Response Format:**  
 ✅ **If Project-related:**  
 - **Project Name:** (If found in the resume)  
@@ -202,7 +186,7 @@ if input_prompt:
 - If the resume **does not contain the requested information**, clearly state that instead of making assumptions.  
 - If multiple relevant details exist, **prioritize the most recent and relevant ones**.  
 """
-"""
+
 
 if submit1:
     if uploaded_resume is not None and uploaded_jd is not None:
