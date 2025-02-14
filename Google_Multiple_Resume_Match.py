@@ -79,13 +79,14 @@ if submit:
             if response:
                 lines = response.split("\n")
                 for line in lines:
-                    if "Match Percentage" in line:
+                    line_lower = line.lower()
+                    if "match percentage" in line_lower:
                         match_percentage = line.split(":")[-1].strip()
-                    elif "Key Skills required as per JD" in line:
+                    elif "key skills required as per jd" in line_lower:
                         jd_skills = line.split(":")[-1].strip()
-                    elif "Key Skills present in the Resume" in line:
+                    elif "key skills present in the resume" in line_lower:
                         resume_skills = line.split(":")[-1].strip()
-                    elif "Contact Information" in line:
+                    elif "contact information" in line_lower:
                         contact_info = line.split(":")[-1].strip()
             
             table_data.append([name, match_percentage, jd_skills, resume_skills, contact_info])
