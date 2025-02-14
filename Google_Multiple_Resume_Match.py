@@ -62,10 +62,11 @@ if submit:
             Role: Resume Matcher AI
             Task: Compare the given resume with the job description.
             Provide the following details in a structured manner:
-            1. Match Percentage
-            2. Key Skills required as per JD
-            3. Key Skills present in the Resume
-            4. Contact Information (if available)
+            1. Name 
+            2. Match Percentage
+            3. Key Skills required as per JD
+            4. Key Skills present in the Resume
+            5. Contact Information
             Output should be structured with labels.
             """
             response = get_gemini_response(input_prompt, resume_content, jd_content)
