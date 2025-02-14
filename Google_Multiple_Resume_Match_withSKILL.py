@@ -47,7 +47,7 @@ def extract_skills(text, skill_list):
     skills_found = skill_pattern.findall(text)
     return ", ".join(set(map(str.strip, skills_found))) if skills_found else "N/A"
 
-st.header("Resume Matcher")
+st.header("Resume Matcher with Skill")
 st.subheader("Upload Resumes to Analyze Matching Scores")
 
 uploaded_resumes = st.file_uploader("Upload Resumes (Multiple PDFs, DOC, DOCX)...", type=["pdf", "doc", "docx"], accept_multiple_files=True)
@@ -76,7 +76,7 @@ if submit:
             Provide the following details in a structured manner:
             1. Match Percentage
             2. Compare with required skills: {skills_required}
-            Output should be structured with labels.
+            The output should be structured with labels.
             """
             response = get_gemini_response(input_prompt, resume_content)
             
