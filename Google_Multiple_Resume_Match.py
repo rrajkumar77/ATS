@@ -67,7 +67,7 @@ if submit:
             1. Match Percentage
             2. Key Skills required as per JD
             3. Key Skills present in the Resume
-            4. Contact Information (if available)
+            4. Contact Information (mobile number : eg : 9790881432)
             5. Compare with required skills: {skills_required}
             Output should be structured with labels.
             """
