@@ -40,6 +40,11 @@ def input_file_setup(uploaded_file):
     else:
         return ""
 
+def extract_skills(text):
+    skill_pattern = re.compile(r'(?i)\b(?:Python|Machine Learning|Data Analysis|Project Management|SQL|Java|C\+\+|Excel|Communication)\b')
+    skills_found = skill_pattern.findall(text)
+    return ", ".join(set(skills_found)) if skills_found else "N/A"
+
 st.header("Resume Matcher")
 st.subheader("Upload Job Description and Resumes to Analyze Matching Scores")
 
@@ -49,6 +54,7 @@ jd_content = ""
 if uploaded_jd is not None:
     jd_content = input_file_setup(uploaded_jd)
     st.write("Job Description Uploaded Successfully")
+    jd_skills = extract_skills(jd_content)
 
 uploaded_resumes = st.file_uploader("Upload Resumes (Multiple PDFs, DOC, DOCX)...", type=["pdf", "doc", "docx"], accept_multiple_files=True)
 
@@ -67,21 +73,20 @@ if submit:
         for resume in uploaded_resumes:
             resume_content = input_file_setup(resume)
             contact_info = extract_contact_info(resume_content)
+            resume_skills = extract_skills(resume_content)
             
             input_prompt = f"""
             Role: Resume Matcher AI
             Task: Compare the given resume with the job description.
             Provide the following details in a structured manner:
             1. Match Percentage
-            2. Key Skills required as per JD
-            3. Key Skills present in the Resume
-            4. Compare with required skills: {skills_required}
+            2. Compare with required skills: {skills_required}
             Output should be structured with labels.
             """
             response = get_gemini_response(input_prompt, resume_content, jd_content)
             
             name = resume.name  # Extract file name as candidate identifier
-            match_percentage, jd_skills, resume_skills = "N/A", "N/A", "N/A"
+            match_percentage = "N/A"
             
             if response:
                 lines = response.split("\n")
@@ -89,10 +94,6 @@ if submit:
                     line_lower = line.lower()
                     if "match percentage" in line_lower:
                         match_percentage = line.split(":")[-1].strip()
-                    elif "key skills required as per jd" in line_lower:
-                        jd_skills = line.split(":")[-1].strip()
-                    elif "key skills present in the resume" in line_lower:
-                        resume_skills = line.split(":")[-1].strip()
             
             table_data.append([name, match_percentage, jd_skills, resume_skills, contact_info])
         
