@@ -41,9 +41,11 @@ def input_file_setup(uploaded_file):
         return ""
 
 def extract_skills(text, skill_list):
-    skill_pattern = re.compile(r'(?i)\b(?:' + '|'.join(re.escape(skill) for skill in skill_list) + r')\b')
+    if not text:
+        return "N/A"
+    skill_pattern = re.compile(r'(?i)\\b(?:' + '|'.join(re.escape(skill) for skill in skill_list) + r')\\b')
     skills_found = skill_pattern.findall(text)
-    return ", ".join(set(skills_found)) if skills_found else "N/A"
+    return ", ".join(set(map(str.strip, skills_found))) if skills_found else "N/A"
 
 st.header("Resume Matcher")
 st.subheader("Upload Job Description and Resumes to Analyze Matching Scores")
