@@ -7,7 +7,7 @@ import docx
 import pandas as pd
 
 # Set page configuration at the very beginning
-st.set_page_config(page_title="Multiple Resume Matcher")
+st.set_page_config(page_title="Resume Matcher")
 
 load_dotenv()
 
@@ -46,6 +46,8 @@ if uploaded_jd is not None:
 
 uploaded_resumes = st.file_uploader("Upload Resumes (Multiple PDFs, DOC, DOCX)...", type=["pdf", "doc", "docx"], accept_multiple_files=True)
 
+skills_required = st.text_input("Enter key skills required for the job (comma-separated):")
+
 submit = st.button("Analyze Resumes")
 
 table_data = []
@@ -62,11 +64,11 @@ if submit:
             Role: Resume Matcher AI
             Task: Compare the given resume with the job description.
             Provide the following details in a structured manner:
-            1. Name 
-            2. Match Percentage
-            3. Key Skills required as per JD
-            4. Key Skills present in the Resume
-            5. Contact Information
+            1. Match Percentage
+            2. Key Skills required as per JD
+            3. Key Skills present in the Resume
+            4. Contact Information (if available)
+            5. Compare with required skills: {skills_required}
             Output should be structured with labels.
             """
             response = get_gemini_response(input_prompt, resume_content, jd_content)
