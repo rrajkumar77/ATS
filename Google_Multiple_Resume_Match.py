@@ -40,8 +40,8 @@ def input_file_setup(uploaded_file):
     else:
         return ""
 
-def extract_skills(text):
-    skill_pattern = re.compile(r'(?i)\b(?:Python|Machine Learning|Data Analysis|Project Management|SQL|Java|C\+\+|Excel|Communication)\b')
+def extract_skills(text, skill_list):
+    skill_pattern = re.compile(r'(?i)\b(?:' + '|'.join(re.escape(skill) for skill in skill_list) + r')\b')
     skills_found = skill_pattern.findall(text)
     return ", ".join(set(skills_found)) if skills_found else "N/A"
 
@@ -54,11 +54,11 @@ jd_content = ""
 if uploaded_jd is not None:
     jd_content = input_file_setup(uploaded_jd)
     st.write("Job Description Uploaded Successfully")
-    jd_skills = extract_skills(jd_content)
 
 uploaded_resumes = st.file_uploader("Upload Resumes (Multiple PDFs, DOC, DOCX)...", type=["pdf", "doc", "docx"], accept_multiple_files=True)
 
 skills_required = st.text_input("Enter key skills required for the job (comma-separated):")
+skills_list = [skill.strip() for skill in skills_required.split(",") if skill.strip()]
 
 submit = st.button("Analyze Resumes")
 
@@ -69,11 +69,14 @@ if submit:
         st.write("Please upload a Job Description to proceed.")
     elif not uploaded_resumes:
         st.write("Please upload at least one Resume to proceed.")
+    elif not skills_list:
+        st.write("Please enter key skills required for the job.")
     else:
         for resume in uploaded_resumes:
             resume_content = input_file_setup(resume)
             contact_info = extract_contact_info(resume_content)
-            resume_skills = extract_skills(resume_content)
+            resume_skills = extract_skills(resume_content, skills_list)
+            jd_skills = extract_skills(jd_content, skills_list)
             
             input_prompt = f"""
             Role: Resume Matcher AI
