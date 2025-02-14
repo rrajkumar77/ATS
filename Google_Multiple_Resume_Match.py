@@ -1,6 +1,7 @@
 import streamlit as st
 import google.generativeai as genai
 import os
+import re
 from dotenv import load_dotenv
 import fitz
 import docx
@@ -17,6 +18,11 @@ def get_gemini_response(input_prompt, resume_content, jd_content):
     model = genai.GenerativeModel('gemini-pro')
     response = model.generate_content([input_prompt, resume_content, jd_content])
     return response.text
+
+def extract_contact_info(text):
+    phone_pattern = re.compile(r'\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}')
+    phone_match = phone_pattern.search(text)
+    return phone_match.group(0) if phone_match else "N/A"
 
 def input_file_setup(uploaded_file):
     if uploaded_file is not None:
@@ -60,6 +66,8 @@ if submit:
     else:
         for resume in uploaded_resumes:
             resume_content = input_file_setup(resume)
+            contact_info = extract_contact_info(resume_content)
+            
             input_prompt = f"""
             Role: Resume Matcher AI
             Task: Compare the given resume with the job description.
@@ -67,14 +75,13 @@ if submit:
             1. Match Percentage
             2. Key Skills required as per JD
             3. Key Skills present in the Resume
-            4. Contact Information (mobile number : eg : 9790881432)
-            5. Compare with required skills: {skills_required}
+            4. Compare with required skills: {skills_required}
             Output should be structured with labels.
             """
             response = get_gemini_response(input_prompt, resume_content, jd_content)
             
             name = resume.name  # Extract file name as candidate identifier
-            match_percentage, jd_skills, resume_skills, contact_info = "N/A", "N/A", "N/A", "N/A"
+            match_percentage, jd_skills, resume_skills = "N/A", "N/A", "N/A"
             
             if response:
                 lines = response.split("\n")
@@ -86,8 +93,6 @@ if submit:
                         jd_skills = line.split(":")[-1].strip()
                     elif "key skills present in the resume" in line_lower:
                         resume_skills = line.split(":")[-1].strip()
-                    elif "contact information" in line_lower:
-                        contact_info = line.split(":")[-1].strip()
             
             table_data.append([name, match_percentage, jd_skills, resume_skills, contact_info])
         
