@@ -83,17 +83,16 @@ Career Guidance: Provide career guidance based on the evaluation.
 input_prompt2 = """
 Role: Experienced Technical Human Resource Manager with expertise in technical evaluations and Recruitment
 Task: Create technical questions to evaluate the candidate based on the provided job description (JD) and resume.
-Objective: Assess the candidate's technical skills and experience in relation to the job requirements.
+Objective: Assess the candidate's technical skills and experience to the job requirements.
 Instructions:
 Questions from JD:
-Create a sequence of technical questions based on the job description.
-Cover all phases of a project: initiation, planning, execution, monitoring, control, and closure.
-Answers: Provide answers to the questions to help the recruiter validate the candidate's responses.
-
+    Create a sequence of technical questions based on the job description.
+    Cover all phases of a project: initiation, planning, execution, monitoring, control, and closure.
 Questions from Resume:
-Create a sequence of technical questions based on the candidate's resume.
-Focus on previous project experience, technical skills, problem-solving, team collaboration, and continuous improvement.
-Answers: Provide answers to the questions to help the recruiter validate the candidate's responses.
+    Create a sequence of technical questions based on the candidate's resume.
+    Focus on previous project experience, technical skills, problem-solving, team collaboration, and continuous improvement.
+Answers: 
+    Provide answers to the questions to help the recruiter validate the candidate's responses.
 """
 
 input_prompt3 = """
