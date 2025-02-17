@@ -88,6 +88,8 @@ Instructions:
 Questions from JD:
 Create a sequence of technical questions based on the job description.
 Cover all phases of a project: initiation, planning, execution, monitoring, control, and closure.
+Answers: Provide answers to the questions to help the recruiter validate the candidate's responses.
+
 Questions from Resume:
 Create a sequence of technical questions based on the candidate's resume.
 Focus on previous project experience, technical skills, problem-solving, team collaboration, and continuous improvement.
