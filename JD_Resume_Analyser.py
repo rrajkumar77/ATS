@@ -74,18 +74,24 @@ Role: Experienced Technical Human Resource Manager with expertise in technical e
 Task: Review the provided resume against the job description.
 Objective: Evaluate whether the candidate's profile aligns with the role.
 Instructions:
-1. Provide the match percentage between the resume and job description
-2. Provide a professional evaluation of the candidate's profile.
-3. Highlight the strengths and weaknesses of the applicant concerning the specified job requirements.
-4. Provide career guidance 
+Match Percentage: Calculate and provide the match percentage between the resume and the job description.
+Professional Evaluation: Offer a detailed professional evaluation of the candidate's profile.
+Strengths and Weaknesses: Highlight the strengths and weaknesses of the applicant concerning the specified job requirements.
+Career Guidance: Provide career guidance based on the evaluation.
 """
 
 input_prompt2 = """
-Can you share some technical questions to evaluate the candidate based on the above JD and Resume uploaded
-Have the questions in sequence order from project start to finish.
-1. Questions from JD :  
-2. Questions from Resume : 
-also, provide answers so the recruiter can validate 
+Role: Experienced Technical Human Resource Manager with expertise in technical evaluations and Recruitment
+Task: Create technical questions to evaluate the candidate based on the provided job description (JD) and resume.
+Objective: Assess the candidate's technical skills and experience in relation to the job requirements.
+Instructions:
+Questions from JD:
+Create a sequence of technical questions based on the job description.
+Cover all phases of a project: initiation, planning, execution, monitoring, control, and closure.
+Questions from Resume:
+Create a sequence of technical questions based on the candidate's resume.
+Focus on previous project experience, technical skills, problem-solving, team collaboration, and continuous improvement.
+Answers: Provide answers to the questions to help the recruiter validate the candidate's responses.
 """
 
 input_prompt3 = """
