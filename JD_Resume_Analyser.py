@@ -1,4 +1,3 @@
-
 import streamlit as st
 import google.generativeai as genai
 import os
@@ -6,6 +5,8 @@ from dotenv import load_dotenv
 import fitz
 import docx
 
+
+        
 # Set page configuration at the very beginning
 st.set_page_config(page_title="Resume Expert")
 
@@ -14,11 +15,20 @@ load_dotenv()
 os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-def get_gemini_response(input, pdf_content, prompt):
-    model = genai.GenerativeModel('gemini-pro')
-    response = model.generate_content([input, pdf_content, prompt])
-    return response.text
+#def get_gemini_response(input, pdf_content, prompt):
+ #   model = genai.GenerativeModel('gemini-pro')
+  #  response = model.generate_content([input, pdf_content, prompt])
+   # return response.text
 
+def get_gemini_response(input, pdf_content, prompt):
+    try:
+        model = genai.GenerativeModel('gemini-pro')
+        response = model.generate_content([input, pdf_content, prompt])
+        return response.text
+    except Exception as e:
+        st.error(f"An error occurred while processing your request: {e}")
+        return None
+        
 def input_file_setup(uploaded_file):
     if uploaded_file is not None:
         file_type = uploaded_file.type
