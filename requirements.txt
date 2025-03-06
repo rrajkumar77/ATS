@@ -7,4 +7,3 @@ fitz
 langchain-experimental
 python-docx
 pymupdf
-pip install --upgrade google-generativeai
