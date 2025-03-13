@@ -1,6 +1,5 @@
 streamlit
 PyPDF2
-pip install google-generativeai
 google-generativeai
 python-dotenv
 PyMuPDF
