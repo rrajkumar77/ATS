@@ -14,6 +14,22 @@ load_dotenv()
 
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
+import google.generativeai as genai
+import streamlit as st
+
+try:
+    genai.configure(api_key=st.secrets["GEMINI_API_KEY"]) # Or however you are storing the key.
+    models = genai.list_models()
+
+    st.write("Available Models:")
+    for model in models:
+        st.write(f"- {model.name}: {model.description}")
+        st.write(f"  Supported methods: {model.supported_generation_methods}")
+
+except Exception as e:
+    st.error(f"An error occurred: {e}")
+
+
 def get_gemini_response(input_prompt, resume_content):
     model = genai.GenerativeModel('gemini-pro')
     response = model.generate_content([input_prompt, resume_content])
