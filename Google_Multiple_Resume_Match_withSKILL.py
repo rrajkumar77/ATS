@@ -31,7 +31,7 @@ except Exception as e:
 
 
 def get_gemini_response(input_prompt, resume_content):
-    model = genai.GenerativeModel('gemini-1.5-pro')
+    model = genai.GenerativeModel('gemini-pro-vision')
     response = model.generate_content([input_prompt, resume_content])
     return response.text
 
