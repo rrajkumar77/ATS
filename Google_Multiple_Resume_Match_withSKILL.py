@@ -15,7 +15,7 @@ load_dotenv()
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 def get_gemini_response(input_prompt, resume_content):
-    model = genai.GenerativeModel('gemini-flash')
+    model = genai.GenerativeModel('gemini-pro')
     response = model.generate_content([input_prompt, resume_content])
     return response.text
 
