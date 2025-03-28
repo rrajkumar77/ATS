@@ -104,10 +104,10 @@ Instructions:
 
 input_prompt5 = """
 Role: AI Assistant
-Task: Summarize the provided job description.
-Objective: Provide a concise summary of the job description.
+Task: Based on the query asked in input_promp provide a response comparing the provided job description and resume.
+Objective: Provide a concise summary of the job description and resume as per the user query.
 Instructions:
-Summarize the key responsibilities, required skills, and qualifications mentioned in the job description.
+Provide response to query only pertaining to the provided job description and resume.
 """
 
 input_prompt6 = """
