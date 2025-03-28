@@ -15,7 +15,7 @@ else:
     genai.configure(api_key=api_key)
 
 def get_gemini_response(input, pdf_content, prompt):
-    model = genai.GenerativeModel('gemini-pro')
+    model = genai.GenerativeModel('gemini-1.5-flash')
     try:
         response = model.generate_content([input, pdf_content, prompt])
         return response.text
