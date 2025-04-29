@@ -81,17 +81,18 @@ def extract_project_updates(file_path):
     
     formatted_updates = []
     for index, row in project_updates.iterrows():
-        formatted_update = f"""
-        - **Employee Name**: {row['Created By']}
-        - **Lead Name**: {row['Team_Lead']}
-        - **Project Name**: {row['Project_Name']}
-        - **Project Description**: {row['Project_Description']}
-        - **Achievements/Value Adds**: {row['Acheivements_ValueAdds']}
-        - **Value Add**: {row['Value_Add']}
-        """
+        formatted_update = {
+            "Employee Name": row['Created By'],
+            "Lead Name": row['Team_Lead'],
+            "Project Name": row['Project_Name'],
+            "Project Description": row['Project_Description'],
+            "Achievements/Value Adds": row['Acheivements_ValueAdds'],
+            "Value Add": row['Value_Add']
+        }
         formatted_updates.append(formatted_update)
     
-    return formatted_updates
+    formatted_df = pd.DataFrame(formatted_updates)
+    return formatted_df
 
 ## Streamlit App
 
@@ -147,5 +148,4 @@ if uploaded_file is not None and uploaded_file.type == "text/csv":
     file_path = uploaded_file.name
     project_updates = extract_project_updates(file_path)
     st.subheader("Project Updates")
-    for update in project_updates:
-        st.write(update)
+    st.write(project_updates)
