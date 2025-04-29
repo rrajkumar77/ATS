@@ -38,11 +38,11 @@ if uploaded_file is not None:
     for index, row in project_updates.iterrows():
         st.markdown(f"""
         <div style="background-color:#f0f0f5; padding:10px; border-radius:5px; margin-bottom:10px;">
-            <h3 style="color:#4CAF50;">Employee Name: {row['Employee Name']}</h3>
-            <p><strong style="color:#FF5733;">Lead Name:</strong> {row['Lead Name']}</p>
-            <p><strong style="color:#FF5733;">Project Name:</strong> {row['Project Name']}</p>
-            <p><strong style="color:#FF5733;">Project Description:</strong> {row['Project Description']}</p>
-            <p><strong style="color:#FF5733;">Achievements/Value Adds:</strong></p>
+            <h3 style="color:#021A32;">Employee Name: {row['Employee Name']}</h3>
+            <p><strong style="color:#F8971D;">Lead Name:</strong> {row['Lead Name']}</p>
+            <p><strong style="color:#F8971D;">Project Name:</strong> {row['Project Name']}</p>
+            <p><strong style="color:#F8971D;">Project Description:</strong> {row['Project Description']}</p>
+            <p><strong style="color:#F8971D;">Achievements/Value Adds:</strong></p>
             <ul style="color:#333;">
                 {row['Achievements/Value Adds']}
             </ul>
