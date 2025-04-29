@@ -46,7 +46,7 @@ st.set_page_config(page_title="Document Analyser")
 
 st.header("Document Analyzer")
 st.subheader('This Application helps you to Analyse any document uploaded')
-uploaded_file = st.file_uploader("Upload your Document (PDF, DOCX, or TXT)...", type=["pdf", "docx", "txt"])
+uploaded_file = st.file_uploader("Upload your Document (PDF, DOCX, CSV, or TXT)...", type=["pdf", "docx", "txt", "CSV"])
 doc_content = ""
 
 if uploaded_file is not None:
