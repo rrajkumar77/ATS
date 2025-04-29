@@ -10,10 +10,10 @@ def extract_project_updates(uploaded_file):
     formatted_updates = []
     for index, row in project_updates.iterrows():
         formatted_update = {
-            "Employee Name": row['Created By'],
-            "Lead Name": row['Team_Lead'],
-            "Project Name": row['Project_Name'],
-            "Project Description": row['Project_Description'],
+            "Employee Name": row['Created By'].replace(';', '.\n- '),
+            "Lead Name": row['Team_Lead'].replace(';', '.\n- '),
+            "Project Name": row['Project_Name'].replace(';', '.\n- '),
+            "Project Description": row['Project_Description'].replace(';', '.\n- '),
             "Achievements/Value Adds": row['Acheivements_ValueAdds'].replace(';', '.\n- '),
             "Value Add": row['Value_Add'].replace(';', '.\n- ')
         }
