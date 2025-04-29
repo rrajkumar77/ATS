@@ -9,19 +9,18 @@ def extract_project_updates(uploaded_file):
     
     formatted_updates = []
     for index, row in project_updates.iterrows():
-        formatted_update = f"""
-        **Employee Name**: {row['Created By']}
-        **Lead Name**: {row['Team_Lead']}
-        **Project Name**: {row['Project_Name']}
-        **Project Description**: {row['Project_Description']}
-        **Achievements/Value Adds**:
-        - {row['Acheivements_ValueAdds'].replace(';', '\n- ')}
-        **Value Add**:
-        - {row['Value_Add'].replace(';', '\n- ')}
-        """
+        formatted_update = {
+            "Employee Name": row['Created By'],
+            "Lead Name": row['Team_Lead'],
+            "Project Name": row['Project_Name'],
+            "Project Description": row['Project_Description'],
+            "Achievements/Value Adds": row['Acheivements_ValueAdds'].replace(';', '.\n- '),
+            "Value Add": row['Value_Add'].replace(';', '.\n- ')
+        }
         formatted_updates.append(formatted_update)
     
-    return formatted_updates
+    formatted_df = pd.DataFrame(formatted_updates)
+    return formatted_df
 
 ## Streamlit App
 
@@ -35,5 +34,21 @@ if uploaded_file is not None:
     st.write("Document Uploaded Successfully")
     project_updates = extract_project_updates(uploaded_file)
     st.subheader("Project Updates")
-    for update in project_updates:
-        st.write(update)
+    
+    for index, row in project_updates.iterrows():
+        st.markdown(f"""
+        <div style="background-color:#f0f0f5; padding:10px; border-radius:5px; margin-bottom:10px;">
+            <h3 style="color:#4CAF50;">Employee Name: {row['Employee Name']}</h3>
+            <p><strong style="color:#FF5733;">Lead Name:</strong> {row['Lead Name']}</p>
+            <p><strong style="color:#FF5733;">Project Name:</strong> {row['Project Name']}</p>
+            <p><strong style="color:#FF5733;">Project Description:</strong> {row['Project Description']}</p>
+            <p><strong style="color:#FF5733;">Achievements/Value Adds:</strong></p>
+            <ul style="color:#333;">
+                {row['Achievements/Value Adds']}
+            </ul>
+            <p><strong style="color:#FF5733;">Value Add:</strong></p>
+            <ul style="color:#333;">
+                {row['Value Add']}
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
