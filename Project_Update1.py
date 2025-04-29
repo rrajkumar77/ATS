@@ -11,7 +11,7 @@ def extract_project_updates(uploaded_file):
     for index, row in project_updates.iterrows():
         formatted_update = f"""
         **Employee Name**: {row['Created By']}
-        **Lead Name**: {row['Team_Lead']}
+        **Lead Name**: {row['Team_Lead'].replace(';', '\n- ')}
         **Project Name**: 
         - {row['Project_Name'].replace(';', '\n- ')}
         **Project Description**: 
