@@ -14,7 +14,22 @@ genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 def get_gemini_response(input, doc_content, prompt):
     model = genai.GenerativeModel('gemini-1.5-flash')
     response = model.generate_content([input, doc_content, prompt])
-    return response.text
+    formatted_response = format_response(response.text)
+    return formatted_response
+
+def format_response(response_text):
+    # Assuming the response_text contains the necessary information in a structured format
+    # You can adjust the parsing logic based on the actual response format
+    lines = response_text.split('\n')
+    emp_name = lines[0].split(':')[1].strip()
+    team_lead = lines[1].split(':')[1].strip()
+    project_name = lines[2].split(':')[1].strip()
+    project_details = lines[3].split(':')[1].strip()
+    consultant_contributions = lines[4].split(':')[1].strip()
+    value_adds = lines[5].split(':')[1].strip()
+
+    formatted_response = f"Emp Name: {emp_name} || Team Lead: {team_lead} || Project Name: {project_name} || Project details: {project_details} || Consultant Contributions: {consultant_contributions} || Value Adds: {value_adds}"
+    return formatted_response
 
 def input_doc_setup(uploaded_file):
     if uploaded_file is not None:
