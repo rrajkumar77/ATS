@@ -1,9 +1,6 @@
 import streamlit as st
-import google.generativeai as genai
+import pandas as pd
 import os
-import PyPDF2 as pdf
-import docx
-import csv
 from io import StringIO
 from dotenv import load_dotenv
 load_dotenv()
@@ -77,6 +74,25 @@ def input_doc_setup(uploaded_file):
     else:
         raise FileNotFoundError("No file uploaded")
 
+def extract_project_updates(file_path):
+    df = pd.read_csv(file_path)
+    columns = ['Created By', 'Team_Lead', 'Project_Name', 'Project_Description', 'Acheivements_ValueAdds', 'Value_Add']
+    project_updates = df[columns]
+    
+    formatted_updates = []
+    for index, row in project_updates.iterrows():
+        formatted_update = f"""
+        - **Employee Name**: {row['Created By']}
+        - **Lead Name**: {row['Team_Lead']}
+        - **Project Name**: {row['Project_Name']}
+        - **Project Description**: {row['Project_Description']}
+        - **Achievements/Value Adds**: {row['Acheivements_ValueAdds']}
+        - **Value Add**: {row['Value_Add']}
+        """
+        formatted_updates.append(formatted_update)
+    
+    return formatted_updates
+
 ## Streamlit App
 
 st.set_page_config(page_title="Document Analyser")
@@ -126,3 +142,10 @@ if submit4:
         st.write(response)
     else:
         st.write("Please upload a document to proceed.")
+
+if uploaded_file is not None and uploaded_file.type == "text/csv":
+    file_path = uploaded_file.name
+    project_updates = extract_project_updates(file_path)
+    st.subheader("Project Updates")
+    for update in project_updates:
+        st.write(update)
