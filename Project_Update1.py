@@ -105,6 +105,8 @@ Based on the transcript uploaded, please provide a comprehensive project update 
 - Project Problem Statement
 - Resolution Strategy and Utilized Tools/Techniques
 - Outcome and Value Adds
+
+Please ensure the response is clear and concise, and presented in bullet points.
 """
 
 if submit1:
