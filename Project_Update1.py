@@ -9,18 +9,19 @@ def extract_project_updates(uploaded_file):
     
     formatted_updates = []
     for index, row in project_updates.iterrows():
-        formatted_update = {
-            "Employee Name": row['Created By'],
-            "Lead Name": row['Team_Lead'],
-            "Project Name": row['Project_Name'],
-            "Project Description": row['Project_Description'],
-            "Achievements/Value Adds": row['Acheivements_ValueAdds'].replace(';', '.\n- '),
-            "Value Add": row['Value_Add'].replace(';', '.\n- ')
-        }
+        formatted_update = f"""
+        **Employee Name**: {row['Created By']}
+        **Lead Name**: {row['Team_Lead']}
+        **Project Name**: {row['Project_Name']}
+        **Project Description**: {row['Project_Description']}
+        **Achievements/Value Adds**:
+        - {row['Acheivements_ValueAdds'].replace(';', '\n- ')}
+        **Value Add**:
+        - {row['Value_Add'].replace(';', '\n- ')}
+        """
         formatted_updates.append(formatted_update)
     
-    formatted_df = pd.DataFrame(formatted_updates)
-    return formatted_df
+    return formatted_updates
 
 ## Streamlit App
 
@@ -34,4 +35,5 @@ if uploaded_file is not None:
     st.write("Document Uploaded Successfully")
     project_updates = extract_project_updates(uploaded_file)
     st.subheader("Project Updates")
-    st.write(project_updates)
+    for update in project_updates:
+        st.write(update)
