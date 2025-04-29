@@ -43,11 +43,11 @@ if uploaded_file is not None:
             <p><strong style="color:#F8971D;">Project Name:</strong> {row['Project Name']}</p>
             <p><strong style="color:#F8971D;">Project Description:</strong> {row['Project Description']}</p>
             <p><strong style="color:#F8971D;">Achievements/Value Adds:</strong></p>
-            <ul style="color:#F8971D;">
+            <ul style="color:#333;">
                 {row['Achievements/Value Adds']}
             </ul>
-            <p><strong style="color:#FF5733;">Value Add:</strong></p>
-            <ul style="color:#F8971D;">
+            <p><strong style="color:#F8971D;">Value Add:</strong></p>
+            <ul style="color:#333;">
                 {row['Value Add']}
             </ul>
         </div>
