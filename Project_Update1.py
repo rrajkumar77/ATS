@@ -19,23 +19,27 @@ def get_gemini_response(input, doc_content, prompt):
 
 def format_response(response_text):
     lines = response_text.split('\n')
-    if len(lines) < 6:
+    if len(lines) < 8:
         raise ValueError("Response text does not contain enough information.")
     
     emp_name = lines[0].split(':')[1].strip() if ':' in lines[0] else "N/A"
-    team_lead = lines[1].split(':')[1].strip() if ':' in lines[1] else "N/A"
+    project_details = lines[1].split(':')[1].strip() if ':' in lines[1] else "N/A"
     project_name = lines[2].split(':')[1].strip() if ':' in lines[2] else "N/A"
-    project_details = lines[3].split(':')[1].strip() if ':' in lines[3] else "N/A"
-    consultant_contributions = lines[4].split(':')[1].strip() if ':' in lines[4] else "N/A"
-    value_adds = lines[5].split(':')[1].strip() if ':' in lines[5] else "N/A"
+    project_description = lines[3].split(':')[1].strip() if ':' in lines[3] else "N/A"
+    team_details = lines[4].split(':')[1].strip() if ':' in lines[4] else "N/A"
+    project_problem_statement = lines[5].split(':')[1].strip() if ':' in lines[5] else "N/A"
+    resolution_strategy = lines[6].split(':')[1].strip() if ':' in lines[6] else "N/A"
+    outcome_value_adds = lines[7].split(':')[1].strip() if ':' in lines[7] else "N/A"
 
     formatted_response = f"""
-    - **Emp Name**: {emp_name}
-    - **Team Lead**: {team_lead}
-    - **Project Name**: {project_name}
+    - **Employee Name**: {emp_name}
     - **Project Details**: {project_details}
-    - **Consultant Contributions**: {consultant_contributions}
-    - **Value Adds**: {value_adds}
+    - **Project Name**: {project_name}
+    - **Project Description**: {project_description}
+    - **Team Details**: {team_details}
+    - **Project Problem Statement**: {project_problem_statement}
+    - **Resolution Strategy and Utilized Tools/Techniques**: {resolution_strategy}
+    - **Outcome and Value Adds**: {outcome_value_adds}
     """
     return formatted_response
 
@@ -94,18 +98,18 @@ submit4 = st.button("Answer My Query")
 input_prompt1 = """
 Based on the transcript uploaded, please provide a comprehensive project update including:
 - Employee Name
-- Team Lead
-- Project Name
 - Project Details
-- Consultant Contributions
-- Value Adds
+- Project Name
+- Project Description
+- Team Details
+- Project Problem Statement
+- Resolution Strategy and Utilized Tools/Techniques
+- Outcome and Value Adds
 """
 
 if submit1:
     if uploaded_file is not None:
         doc_content = input_doc_setup(uploaded_file)
-        st.write("Document Content:")
-        st.write(doc_content)  # Debug statement to print document content
         response = get_gemini_response(input_prompt1, doc_content, "")
         st.subheader("The Response is")
         st.write(response)
@@ -115,8 +119,6 @@ if submit1:
 if submit4:
     if uploaded_file is not None:
         doc_content = input_doc_setup(uploaded_file)
-        st.write("Document Content:")
-        st.write(doc_content)  # Debug statement to print document content
         response = get_gemini_response(input_promp, doc_content, "")
         st.subheader("The Response is")
         st.write(response)
