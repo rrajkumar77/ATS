@@ -59,7 +59,7 @@ input_promp = st.text_input("Queries: Feel Free to Ask here")
 submit4 = st.button("Answer My Query")
 
 input_prompt1 = """
-Based on the transcript uploaded, Please provide a comprehensive project update. 
+Based on the transcript uploaded, please provide a comprehensive project update. 
 """
 
 if submit1:
