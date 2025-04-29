@@ -4,6 +4,7 @@ import os
 import PyPDF2 as pdf
 import docx
 import csv
+from io import StringIO
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -35,11 +36,14 @@ def input_doc_setup(uploaded_file):
             doc_text_content = uploaded_file.read().decode("utf-8")
         elif uploaded_file.type == "text/csv":
             # Read the CSV file
-            text_parts = []
-            csv_reader = csv.reader(uploaded_file)
-            for row in csv_reader:
-                text_parts.append(", ".join(row))
-            doc_text_content = "\n".join(text_parts)
+            try:
+                text_parts = []
+                csv_reader = csv.reader(StringIO(uploaded_file.getvalue().decode("utf-8")))
+                for row in csv_reader:
+                    text_parts.append(", ".join(row))
+                doc_text_content = "\n".join(text_parts)
+            except csv.Error as e:
+                raise ValueError(f"CSV file reading error: {e}")
         else:
             raise ValueError("Unsupported file type")
         return doc_text_content
