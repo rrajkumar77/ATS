@@ -47,7 +47,7 @@ if uploaded_file is not None:
                 {row['Achievements/Value Adds']}
             </ul>
             <p><strong style="color:#F8971D;">Value Add:</strong></p>
-            <ul style="color:#333;">
+            <ul style="color:#021A32;">
                 {row['Value Add']}
             </ul>
         </div>
