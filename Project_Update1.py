@@ -97,6 +97,8 @@ Based on the transcript uploaded, please provide a comprehensive project update 
 if submit1:
     if uploaded_file is not None:
         doc_content = input_doc_setup(uploaded_file)
+        st.write("Document Content:")
+        st.write(doc_content)  # Debug statement to print document content
         response = get_gemini_response(input_prompt1, doc_content, "")
         st.subheader("The Response is")
         st.write(response)
@@ -106,6 +108,8 @@ if submit1:
 if submit4:
     if uploaded_file is not None:
         doc_content = input_doc_setup(uploaded_file)
+        st.write("Document Content:")
+        st.write(doc_content)  # Debug statement to print document content
         response = get_gemini_response(input_promp, doc_content, "")
         st.subheader("The Response is")
         st.write(response)
