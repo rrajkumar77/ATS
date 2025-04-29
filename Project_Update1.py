@@ -34,4 +34,4 @@ if uploaded_file is not None:
     st.write("Document Uploaded Successfully")
     project_updates = extract_project_updates(uploaded_file)
     st.subheader("Project Updates")
-    st.write(project_updates.to_markdown(index=False))
+    st.dataframe(project_updates)
