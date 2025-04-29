@@ -3,10 +3,9 @@ import google.generativeai as genai
 import os
 import PyPDF2 as pdf
 import docx
+import csv
 from dotenv import load_dotenv
 load_dotenv()
-
-import google.generativeai as genai
 
 os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
@@ -34,6 +33,13 @@ def input_doc_setup(uploaded_file):
         elif uploaded_file.type == "text/plain":
             # Read the TXT file
             doc_text_content = uploaded_file.read().decode("utf-8")
+        elif uploaded_file.type == "text/csv":
+            # Read the CSV file
+            text_parts = []
+            csv_reader = csv.reader(uploaded_file)
+            for row in csv_reader:
+                text_parts.append(", ".join(row))
+            doc_text_content = "\n".join(text_parts)
         else:
             raise ValueError("Unsupported file type")
         return doc_text_content
@@ -46,7 +52,7 @@ st.set_page_config(page_title="Document Analyser")
 
 st.header("Document Analyzer")
 st.subheader('This Application helps you to Analyse any document uploaded')
-uploaded_file = st.file_uploader("Upload your Document (PDF, DOCX, CSV, or TXT)...", type=["pdf", "docx", "txt", "CSV"])
+uploaded_file = st.file_uploader("Upload your Document (PDF, DOCX, CSV, or TXT)...", type=["pdf", "docx", "txt", "csv"])
 doc_content = ""
 
 if uploaded_file is not None:
