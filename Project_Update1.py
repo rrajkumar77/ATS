@@ -18,15 +18,16 @@ def get_gemini_response(input, doc_content, prompt):
     return formatted_response
 
 def format_response(response_text):
-    # Assuming the response_text contains the necessary information in a structured format
-    # You can adjust the parsing logic based on the actual response format
     lines = response_text.split('\n')
-    emp_name = lines[0].split(':')[1].strip()
-    team_lead = lines[1].split(':')[1].strip()
-    project_name = lines[2].split(':')[1].strip()
-    project_details = lines[3].split(':')[1].strip()
-    consultant_contributions = lines[4].split(':')[1].strip()
-    value_adds = lines[5].split(':')[1].strip()
+    if len(lines) < 6:
+        raise ValueError("Response text does not contain enough information.")
+    
+    emp_name = lines[0].split(':')[1].strip() if ':' in lines[0] else "N/A"
+    team_lead = lines[1].split(':')[1].strip() if ':' in lines[1] else "N/A"
+    project_name = lines[2].split(':')[1].strip() if ':' in lines[2] else "N/A"
+    project_details = lines[3].split(':')[1].strip() if ':' in lines[3] else "N/A"
+    consultant_contributions = lines[4].split(':')[1].strip() if ':' in lines[4] else "N/A"
+    value_adds = lines[5].split(':')[1].strip() if ':' in lines[5] else "N/A"
 
     formatted_response = f"Emp Name: {emp_name} || Team Lead: {team_lead} || Project Name: {project_name} || Project details: {project_details} || Consultant Contributions: {consultant_contributions} || Value Adds: {value_adds}"
     return formatted_response
