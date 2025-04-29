@@ -29,7 +29,14 @@ def format_response(response_text):
     consultant_contributions = lines[4].split(':')[1].strip() if ':' in lines[4] else "N/A"
     value_adds = lines[5].split(':')[1].strip() if ':' in lines[5] else "N/A"
 
-    formatted_response = f"Emp Name: {emp_name} || Team Lead: {team_lead} || Project Name: {project_name} || Project details: {project_details} || Consultant Contributions: {consultant_contributions} || Value Adds: {value_adds}"
+    formatted_response = f"""
+    - **Emp Name**: {emp_name}
+    - **Team Lead**: {team_lead}
+    - **Project Name**: {project_name}
+    - **Project Details**: {project_details}
+    - **Consultant Contributions**: {consultant_contributions}
+    - **Value Adds**: {value_adds}
+    """
     return formatted_response
 
 def input_doc_setup(uploaded_file):
