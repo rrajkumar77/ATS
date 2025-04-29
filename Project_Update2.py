@@ -6,7 +6,6 @@ def extract_project_updates(uploaded_file):
     df = pd.read_csv(uploaded_file)
     columns = ['Created By', 'Team_Lead', 'Project_Name', 'Project_Description', 'Acheivements_ValueAdds', 'Value_Add']
     project_updates = df[columns]
-    
     formatted_updates = []
     for index, row in project_updates.iterrows():
         formatted_update = {
@@ -18,37 +17,46 @@ def extract_project_updates(uploaded_file):
             "Value Add": row['Value_Add'].replace(';', '.\n- ')
         }
         formatted_updates.append(formatted_update)
-    
     formatted_df = pd.DataFrame(formatted_updates)
     return formatted_df
 
+def generate_bullet_summary(row):
+    """
+    Generates a bullet-point summary for a project update row.
+    """
+    summary = (
+        f"- **Lead Name:** {row['Lead Name']}\n"
+        f"- **Project Name:** {row['Project Name']}\n"
+        f"- **Project Description:** {row['Project Description']}\n"
+        f"- **Achievements/Value Adds:** {row['Achievements/Value Adds']}\n"
+        f"- **Value Add:** {row['Value Add']}\n"
+    )
+    return summary
+
 ## Streamlit App
-
 st.set_page_config(page_title="Document Analyser")
-
 st.header("Document Analyzer")
 st.subheader('This Application helps you to Analyse any document uploaded')
+
 uploaded_file = st.file_uploader("Upload your Document (CSV only)...", type=["csv"])
 
 if uploaded_file is not None:
     st.write("Document Uploaded Successfully")
     project_updates = extract_project_updates(uploaded_file)
     st.subheader("Project Updates")
-    
     for index, row in project_updates.iterrows():
         st.markdown(f"""
-        <div style="background-color:#f0f0f5; padding:10px; border-radius:5px; margin-bottom:10px;">
-            <h3 style="color:#C6DC00;">Employee Name: {row['Employee Name']}</h3>
-            <p><strong style="color:#F8971D;">Lead Name:</strong> {row['Lead Name']}</p>
-            <p><strong style="color:#F8971D;">Project Name:</strong> {row['Project Name']}</p>
-            <p><strong style="color:#F8971D;">Project Description:</strong> {row['Project Description']}</p>
-            <p><strong style="color:#F8971D;">Achievements/Value Adds:</strong></p>
-            <ul style="color:#021A32;">
-                {row['Achievements/Value Adds']}
-            </ul>
-            <p><strong style="color:#F8971D;">Value Add:</strong></p>
-            <ul style="color:#021A32;">
-                {row['Value Add']}
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
+**Lead Name:** {row['Lead Name']}
+
+**Project Name:** {row['Project Name']}
+
+**Project Description:** {row['Project Description']}
+
+**Achievements/Value Adds:** {row['Achievements/Value Adds']}
+
+**Value Add:** {row['Value Add']}
+        """)
+        # Add bullet-point summary for stakeholders
+        st.markdown("**Summary for Stakeholders:**")
+        st.markdown(generate_bullet_summary(row))
+
