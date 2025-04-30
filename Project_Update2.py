@@ -1,9 +1,29 @@
 import streamlit as st
 import pandas as pd
 from io import StringIO
+import google.generativeai as genai
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+# Get the Google API key from environment variables
+api_key = os.getenv("GOOGLE_API_KEY")
+if not api_key:
+    st.error("Google API Key not found. Please make sure it is set in the environment.")
+else:
+    genai.configure(api_key=api_key)
+
+def get_gemini_response(input, prompt):
+    model = genai.GenerativeModel('gemini-1.5-flash')
+    try:
+        response = model.generate_content([input, prompt])
+        return response.text
+    except Exception as e:
+        st.error(f"Error generating response: {str(e)}")
+        return ""
 
 def extract_project_updates(uploaded_file):
-    import pandas as pd
     try:
         df = pd.read_csv(uploaded_file)
         if df.empty:
@@ -39,7 +59,6 @@ def extract_project_updates(uploaded_file):
     return formatted_updates
 
 def concise_project_update(uploaded_file):
-    import pandas as pd
     try:
         df = pd.read_csv(uploaded_file)
         if df.empty:
@@ -86,6 +105,10 @@ st.set_page_config(page_title="Document Analyser")
 st.header("Document Analyzer")
 st.subheader('This Application helps you to Analyse any document uploaded')
 uploaded_file = st.file_uploader("Upload your Document (CSV only)...", type=["csv"])
+
+# Input prompt for generating concise insights
+input_prompt = st.text_input("Prompt: ", key="input_prompt")
+
 if uploaded_file is not None:
     st.write("Document Uploaded Successfully")
     project_updates = extract_project_updates(uploaded_file)
@@ -96,3 +119,13 @@ if uploaded_file is not None:
     st.subheader("Concise Project Updates")
     for update in concise_updates:
         st.markdown(update, unsafe_allow_html=True)
+
+if st.button("Generate Insights"):
+    if uploaded_file is not None:
+        concise_updates = concise_project_update(uploaded_file)
+        if concise_updates:
+            response = get_gemini_response(input_prompt, concise_updates)
+            st.subheader("Generated Insights")
+            st.write(response)
+        else:
+            st.write("Please upload a valid CSV file to proceed.")
