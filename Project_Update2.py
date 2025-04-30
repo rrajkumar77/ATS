@@ -106,8 +106,11 @@ st.header("Document Analyzer")
 st.subheader('This Application helps you to Analyse any document uploaded')
 uploaded_file = st.file_uploader("Upload your Document (CSV only)...", type=["csv"])
 
-# Input prompt for generating concise insights
-input_prompt = st.text_input("Prompt: ", key="input_prompt")
+# Set the prompt for generating concise insights
+input_prompt1 = """
+You are an experienced Project Manager, your task is to review the provided project updates and summarize them concisely. 
+Please provide meaningful insights in bullet points, highlighting key achievements and value adds.
+"""
 
 if uploaded_file is not None:
     st.write("Document Uploaded Successfully")
@@ -124,7 +127,7 @@ if st.button("Generate Insights"):
     if uploaded_file is not None:
         concise_updates = concise_project_update(uploaded_file)
         if concise_updates:
-            response = get_gemini_response(input_prompt, concise_updates)
+            response = get_gemini_response(concise_updates, input_prompt1)
             st.subheader("Generated Insights")
             st.write(response)
         else:
