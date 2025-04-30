@@ -4,7 +4,15 @@ from io import StringIO
 
 def extract_project_updates(uploaded_file):
     import pandas as pd
-    df = pd.read_csv(uploaded_file)
+    try:
+        df = pd.read_csv(uploaded_file)
+        if df.empty:
+            st.error("The uploaded CSV file is empty. Please upload a valid file.")
+            return []
+    except pd.errors.EmptyDataError:
+        st.error("The uploaded CSV file is empty. Please upload a valid file.")
+        return []
+    
     columns = ['Created By', 'Team_Lead', 'Project_Name', 'Project_Description', 'Acheivements_ValueAdds', 'Value_Add']
     project_updates = df[columns]
     
@@ -32,7 +40,15 @@ def extract_project_updates(uploaded_file):
 
 def concise_project_update(uploaded_file):
     import pandas as pd
-    df = pd.read_csv(uploaded_file)
+    try:
+        df = pd.read_csv(uploaded_file)
+        if df.empty:
+            st.error("The uploaded CSV file is empty. Please upload a valid file.")
+            return []
+    except pd.errors.EmptyDataError:
+        st.error("The uploaded CSV file is empty. Please upload a valid file.")
+        return []
+    
     columns = ['Created By', 'Team_Lead', 'Project_Name', 'Project_Description', 'Acheivements_ValueAdds', 'Value_Add']
     project_updates = df[columns]
     
