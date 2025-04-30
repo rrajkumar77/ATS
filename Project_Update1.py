@@ -4,8 +4,6 @@ from io import StringIO
 
 def extract_project_updates(uploaded_file):
     df = pd.read_csv(uploaded_file, encoding='utf-8')
-    st.write("Columns in the uploaded file:", df.columns)  # Print the column names to verify
-    st.write("Sample data:", df.head())  # Print a sample of the data to check for anomalies
     
     # Check if the required columns are present in the DataFrame
     required_columns = ['Created By', 'Team_Lead', 'Project_Name', 'Project_Description', 'Acheivements_ValueAdds', 'Value_Add']
