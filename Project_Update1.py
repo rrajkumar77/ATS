@@ -18,6 +18,9 @@ def extract_project_updates(uploaded_file):
     
     formatted_updates = []
     for index, row in project_updates.iterrows():
+        achievements = str(row['Acheivements_ValueAdds']).replace(';', '.</li>\n<li>') if pd.notnull(row['Acheivements_ValueAdds']) else ''
+        value_add = str(row['Value_Add']).replace(';', '.</li>\n<li>') if pd.notnull(row['Value_Add']) else ''
+        
         formatted_update = f"""
         <div style="background-color:#F6F5F5; padding:10px; border-radius:5px; margin-bottom:10px;">
             <h3 style="color:#021A2A;">Employee Name: {row['Created By']}</h3>
@@ -26,11 +29,11 @@ def extract_project_updates(uploaded_file):
             <p><strong style="color:#0095D3;">Project Description:</strong> {row['Project_Description']}</p>
             <p><strong style="color:#44D7F4;">Achievements/Value Adds:</strong></p>
             <ul style="color:#333;">
-                <li>{row['Acheivements_ValueAdds'].replace(';', '.</li>\n<li>')}</li>
+                <li>{achievements}</li>
             </ul>
             <p><strong style="color:#F9671D;">Value Add:</strong></p>
             <ul style="color:#333;">
-                <li>{row['Value_Add'].replace(';', '.</li>\n<li>')}</li>
+                <li>{value_add}</li>
             </ul>
         </div>
         """
