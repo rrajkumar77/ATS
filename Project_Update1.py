@@ -3,7 +3,8 @@ import pandas as pd
 from io import StringIO
 
 def extract_project_updates(uploaded_file):
-    df = pd.read_csv(uploaded_file, encoding='utf-8')  # Specify the encoding here
+    df = pd.read_csv(uploaded_file, encoding='utf-8')
+    print(df.columns)  # Print the column names to verify
     columns = ['Created By', 'Team_Lead', 'Project_Name', 'Project_Description', 'Acheivements_ValueAdds', 'Value_Add']
     project_updates = df[columns]
     
