@@ -5,8 +5,15 @@ from io import StringIO
 def extract_project_updates(uploaded_file):
     df = pd.read_csv(uploaded_file, encoding='utf-8')
     st.write("Columns in the uploaded file:", df.columns)  # Print the column names to verify
-    columns = ['Created By', 'Team_Lead', 'Project_Name', 'Project_Description', 'Acheivements_ValueAdds', 'Value_Add']
-    project_updates = df[columns]
+    
+    # Check if the required columns are present in the DataFrame
+    required_columns = ['Created By', 'Team_Lead', 'Project_Name', 'Project_Description', 'Acheivements_ValueAdds', 'Value_Add']
+    for col in required_columns:
+        if col not in df.columns:
+            st.error(f"Column '{col}' is missing from the uploaded file.")
+            return []
+    
+    project_updates = df[required_columns]
     
     formatted_updates = []
     for index, row in project_updates.iterrows():
