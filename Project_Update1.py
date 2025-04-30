@@ -23,12 +23,16 @@ def extract_project_updates(uploaded_file):
         <div style="background-color:#F6F5F5; padding:10px; border-radius:5px; margin-bottom:10px;">
             <h3 style="color:#021A2A;">Employee Name: {row['Created By']}</h3>
             <p><strong style="color:#CDDC00;">Lead Name:</strong> {row['Team_Lead']}</p>
+            <br>
             <p><strong style="color:#007698;">Project Name:</strong> {row['Project_Name']}</p>
+            <br>
             <p><strong style="color:#0095D3;">Project Description:</strong> {row['Project_Description']}</p>
+            <br>
             <p><strong style="color:#44D7F4;">Achievements/Value Adds:</strong></p>
             <ul style="color:#333;">
                 <li>{achievements}</li>
             </ul>
+            <br>
             <p><strong style="color:#F9671D;">Value Add:</strong></p>
             <ul style="color:#333;">
                 <li>{value_add}</li>
