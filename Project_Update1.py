@@ -30,7 +30,6 @@ def extract_project_updates(uploaded_file):
     
     return formatted_updates
 
-
 #{row['Value_Add'].replace(';', '.\n- ')}
 ## Streamlit App
 
