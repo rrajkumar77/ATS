@@ -3,60 +3,80 @@ import pandas as pd
 from io import StringIO
 
 def extract_project_updates(uploaded_file):
+    import pandas as pd
     df = pd.read_csv(uploaded_file)
     columns = ['Created By', 'Team_Lead', 'Project_Name', 'Project_Description', 'Acheivements_ValueAdds', 'Value_Add']
     project_updates = df[columns]
+    
     formatted_updates = []
     for index, row in project_updates.iterrows():
-        formatted_update = {
-            "Employee Name": row['Created By'].replace(';', '.\n- '),
-            "Lead Name": row['Team_Lead'].replace(';', '.\n- '),
-            "Project Name": row['Project_Name'].replace(';', '.\n- '),
-            "Project Description": row['Project_Description'].replace(';', '.\n- '),
-            "Achievements/Value Adds": row['Acheivements_ValueAdds'].replace(';', '.\n- '),
-            "Value Add": row['Value_Add'].replace(';', '.\n- ')
-        }
+        formatted_update = f"""
+        <div style="background-color:#F6F5F5; padding:10px; border-radius:5px; margin-bottom:10px;">
+            <h3 style="color:#021A2A;">Employee Name: {row['Created By']}</h3>
+            <p><strong style="color:#CDDC00;">Lead Name:</strong> {row['Team_Lead']}</p>
+            <p><strong style="color:#007698;">Project Name:</strong> {row['Project_Name']}</p>
+            <p><strong style="color:#0095D3;">Project Description:</strong> {row['Project_Description']}</p>
+            <p><strong style="color:#44D7F4;">Achievements/Value Adds:</strong></p>
+            <ul style="color:#333;">
+                <li>{row['Acheivements_ValueAdds'].replace(';', '.</li>\n<li>')}</li>
+            </ul>
+            <p><strong style="color:#F9671D;">Value Add:</strong></p>
+            <ul style="color:#333;">
+                <li>{row['Value_Add'].replace(';', '.</li>\n<li>')}</li>
+            </ul>
+        </div>
+        """
         formatted_updates.append(formatted_update)
-    formatted_df = pd.DataFrame(formatted_updates)
-    return formatted_df
+    
+    return formatted_updates
 
-def generate_bullet_summary(row):
-    """
-    Generates a bullet-point summary for a project update row.
-    """
-    summary = (
-        f"- **Lead Name:** {row['Lead Name']}\n"
-        f"- **Project Name:** {row['Project Name']}\n"
-        f"- **Project Description:** {row['Project Description']}\n"
-        f"- **Achievements/Value Adds:** {row['Achievements/Value Adds']}\n"
-        f"- **Value Add:** {row['Value Add']}\n"
-    )
-    return summary
+def concise_project_update(uploaded_file):
+    import pandas as pd
+    df = pd.read_csv(uploaded_file)
+    columns = ['Created By', 'Team_Lead', 'Project_Name', 'Project_Description', 'Acheivements_ValueAdds', 'Value_Add']
+    project_updates = df[columns]
+    
+    concise_updates = []
+    for index, row in project_updates.iterrows():
+        concise_update = f"""
+        <div style="background-color:#F6F5F5; padding:10px; border-radius:5px; margin-bottom:10px;">
+            <h3 style="color:#021A2A;">Employee Name: {row['Created By']}</h3>
+            <p><strong style="color:#CDDC00;">Lead Name:</strong> {row['Team_Lead']}</p>
+            <p><strong style="color:#007698;">Project Name:</strong> {row['Project_Name']}</p>
+            <p><strong style="color:#0095D3;">Project Description:</strong> {row['Project_Description']}</p>
+            <p><strong style="color:#44D7F4;">Achievements/Value Adds:</strong></p>
+            <ul style="color:#333;">
+                <li>{row['Acheivements_ValueAdds'].replace(';', '.</li>\n<li>')}</li>
+            </ul>
+            <p><strong style="color:#F9671D;">Value Add:</strong></p>
+            <ul style="color:#333;">
+                <li>{row['Value_Add'].replace(';', '.</li>\n<li>')}</li>
+            </ul>
+            <p><strong style="color:#007698;">Concise Insights:</strong></p>
+            <ul style="color:#333;">
+                <li>Project Name: {row['Project_Name']}</li>
+                <li>Lead Name: {row['Team_Lead']}</li>
+                <li>Key Achievements: {row['Acheivements_ValueAdds'].replace(';', ', ')}</li>
+                <li>Value Adds: {row['Value_Add'].replace(';', ', ')}</li>
+            </ul>
+        </div>
+        """
+        concise_updates.append(concise_update)
+    
+    return concise_updates
 
 ## Streamlit App
 st.set_page_config(page_title="Document Analyser")
 st.header("Document Analyzer")
 st.subheader('This Application helps you to Analyse any document uploaded')
-
 uploaded_file = st.file_uploader("Upload your Document (CSV only)...", type=["csv"])
-
 if uploaded_file is not None:
     st.write("Document Uploaded Successfully")
     project_updates = extract_project_updates(uploaded_file)
+    concise_updates = concise_project_update(uploaded_file)
     st.subheader("Project Updates")
-    for index, row in project_updates.iterrows():
-        st.markdown(f"""
-**Lead Name:** {row['Lead Name']}
-
-**Project Name:** {row['Project Name']}
-
-**Project Description:** {row['Project Description']}
-
-**Achievements/Value Adds:** {row['Achievements/Value Adds']}
-
-**Value Add:** {row['Value Add']}
-        """)
-        # Add bullet-point summary for stakeholders
-        st.markdown("**Summary for Stakeholders:**")
-        st.markdown(generate_bullet_summary(row))
-
+    for update in project_updates:
+        st.markdown(update, unsafe_allow_html=True)
+    st.subheader("Concise Project Updates")
+    for update in concise_updates:
+        st.markdown(update, unsafe_allow_html=True)
