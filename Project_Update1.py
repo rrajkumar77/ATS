@@ -3,8 +3,7 @@ import pandas as pd
 from io import StringIO
 
 def extract_project_updates(uploaded_file):
-    import pandas as pd
-    df = pd.read_csv(uploaded_file)
+    df = pd.read_csv(uploaded_file, encoding='utf-8')  # Specify the encoding here
     columns = ['Created By', 'Team_Lead', 'Project_Name', 'Project_Description', 'Acheivements_ValueAdds', 'Value_Add']
     project_updates = df[columns]
     
@@ -30,15 +29,11 @@ def extract_project_updates(uploaded_file):
     
     return formatted_updates
 
-#{row['Value_Add'].replace(';', '.\n- ')}
-## Streamlit App
-
+# Streamlit App
 st.set_page_config(page_title="Document Analyser")
-
 st.header("Document Analyzer")
 st.subheader('This Application helps you to Analyse any document uploaded')
 uploaded_file = st.file_uploader("Upload your Document (CSV only)...", type=["csv"])
-
 if uploaded_file is not None:
     st.write("Document Uploaded Successfully")
     project_updates = extract_project_updates(uploaded_file)
