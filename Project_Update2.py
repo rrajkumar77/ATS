@@ -46,7 +46,7 @@ if uploaded_file is not None:
     st.success("✅ File uploaded!")
 
     for idx, row in df.iterrows():
-        employee_name = row.get("Title", "N/A")
+        employee_name = row.get("Created By", "N/A")
         team_lead = row.get("Team_Lead", "")
         project_name = row.get("Project_Name", "")
         project_desc = row.get("Project_Description", "")
