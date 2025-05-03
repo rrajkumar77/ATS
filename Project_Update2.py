@@ -1,70 +1,74 @@
 import streamlit as st
+import pandas as pd
 import google.generativeai as genai
 import os
-import pandas as pd
 from dotenv import load_dotenv
 
-# Load environment variables
+# Load your .env with the Google API key
 load_dotenv()
 api_key = os.getenv("GOOGLE_API_KEY")
+
+# Configure Gemini
 if not api_key:
-    st.error("Google API Key not found.")
+    st.error("Missing GOOGLE_API_KEY in environment.")
 else:
     genai.configure(api_key=api_key)
 
-# Gemini interaction
+# Define the Gemini summarizer
 def get_project_summary(text):
-    model = genai.GenerativeModel('gemini-pro')
-    prompt = "Summarize this project in a professional tone with key details, achievements, and value adds:"
     try:
-        response = model.generate_content([prompt, text])
+        model = genai.GenerativeModel('models/gemini-pro')  # Fully qualified path
+        prompt = (
+            "Summarize this employee's project experience in 4-5 concise bullet points using <ul><li> HTML tags. "
+            "Include project name, responsibilities, achievements, value add, and technologies used:"
+        )
+        response = model.generate_content([prompt + "\n\n" + text])
         return response.text
     except Exception as e:
-        return f"Error generating summary: {str(e)}"
+        return f"<p style='color:red;'>Error: {str(e)}</p>"
 
-# Styled HTML output using your brand colors
-def format_summary(employee_name, lead_name, project_name, project_desc, achievements, value_add):
+# Format HTML block with brand styling
+def format_summary(employee_name, summary_html):
     return f"""
-    <div style="background-color:#F5F5F5; padding: 20px; border-radius: 10px;">
-        <h3 style="color:#012A52;">Employee Name: {employee_name}</h3>
-        <p><strong style="color:#CDDC00;">Lead Name:</strong> {lead_name}</p>
-        <p><strong style="color:#009CDE;">Project Name:</strong> {project_name}</p>
-        <p><strong style="color:#00798B;">Project Description:</strong> {project_desc}</p>
-        <p><strong style="color:#009CDE;">Achievements/Value Adds:</strong><br>{achievements}</p>
-        <p><strong style="color:#F8971D;">Value Add:</strong><br>{value_add}</p>
+    <div style="background-color:#F5F5F5; padding: 20px; border-radius: 12px; margin-bottom: 25px;">
+        <h3 style="color:#012A52; font-family:sans-serif;">Employee Name: {employee_name}</h3>
+        <div style="color:#00798B; font-size: 16px; font-family:sans-serif;">{summary_html}</div>
     </div>
-    <br>
     """
 
-# Streamlit UI
-st.set_page_config(page_title="Project Summary Generator")
-st.header("QBR Project Summary Generator")
-st.subheader("Upload your QBR data in CSV format to get formatted summaries")
+# Streamlit layout
+st.set_page_config(page_title="Project Summary Generator", layout="centered")
+st.title("🔍 Project Summary Generator")
+st.markdown("Upload a QBR CSV to generate project summaries in your brand format.")
 
-uploaded_csv = st.file_uploader("Upload QBR CSV", type=["csv"])
+# CSV uploader
+uploaded_file = st.file_uploader("Upload QBR CSV", type=["csv"])
 
-if uploaded_csv is not None:
-    df = pd.read_csv(uploaded_csv)
+if uploaded_file is not None:
+    df = pd.read_csv(uploaded_file)
+    st.success("✅ File uploaded successfully!")
 
-    for index, row in df.iterrows():
-        combined_text = f"""
-        Employee Name: {row.get('Employee Name', '')}
-        Lead Name: {row.get('Lead Name', '')}
-        Project Name: {row.get('Project Name', '')}
-        Project Description: {row.get('Project Description', '')}
-        Achievements/Value Adds: {row.get('Achievements/Value Adds', '')}
-        Value Add: {row.get('Value Add', '')}
+    st.write("📄 **Detected Columns:**", df.columns.tolist())
+
+    for idx, row in df.iterrows():
+        # Adjust column names based on your actual CSV
+        employee_name = row.get("Employee Name", "N/A")
+        lead_name = row.get("Lead Name", "")
+        project_name = row.get("Project Name", "")
+        project_description = row.get("Project Description", "")
+        achievements = row.get("Achievements/Value Adds", "")
+        value_add = row.get("Value Add", "")
+
+        # Combine into one input
+        full_text = f"""
+        Employee Name: {employee_name}
+        Lead Name: {lead_name}
+        Project Name: {project_name}
+        Project Description: {project_description}
+        Achievements: {achievements}
+        Value Add: {value_add}
         """
 
-        summary = get_project_summary(combined_text)
-
-        formatted_html = format_summary(
-            employee_name=row.get('Employee Name', 'N/A'),
-            lead_name=row.get('Lead Name', 'N/A'),
-            project_name=row.get('Project Name', 'N/A'),
-            project_desc=row.get('Project Description', 'N/A'),
-            achievements=row.get('Achievements/Value Adds', 'N/A'),
-            value_add=row.get('Value Add', 'N/A')
-        )
-
-        st.markdown(formatted_html, unsafe_allow_html=True)
+        summary_html = get_project_summary(full_text)
+        summary_block = format_summary(employee_name, summary_html)
+        st.markdown(summary_block, unsafe_allow_html=True)
