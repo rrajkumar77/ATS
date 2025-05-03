@@ -1,134 +1,70 @@
 import streamlit as st
-import pandas as pd
-from io import StringIO
 import google.generativeai as genai
 import os
+import pandas as pd
 from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
-# Get the Google API key from environment variables
 api_key = os.getenv("GOOGLE_API_KEY")
 if not api_key:
-    st.error("Google API Key not found. Please make sure it is set in the environment.")
+    st.error("Google API Key not found.")
 else:
     genai.configure(api_key=api_key)
 
-def get_gemini_response(input, prompt):
-    model = genai.GenerativeModel('gemini-1.5-flash')
+# Gemini interaction
+def get_project_summary(text):
+    model = genai.GenerativeModel('gemini-pro')
+    prompt = "Summarize this project in a professional tone with key details, achievements, and value adds:"
     try:
-        response = model.generate_content([input, prompt])
+        response = model.generate_content([prompt, text])
         return response.text
     except Exception as e:
-        st.error(f"Error generating response: {str(e)}")
-        return ""
+        return f"Error generating summary: {str(e)}"
 
-def extract_project_updates(uploaded_file):
-    try:
-        df = pd.read_csv(uploaded_file)
-        if df.empty:
-            st.error("The uploaded CSV file is empty. Please upload a valid file.")
-            return []
-    except pd.errors.EmptyDataError:
-        st.error("The uploaded CSV file is empty. Please upload a valid file.")
-        return []
-    
-    columns = ['Created By', 'Team_Lead', 'Project_Name', 'Project_Description', 'Acheivements_ValueAdds', 'Value_Add']
-    project_updates = df[columns]
-    
-    formatted_updates = []
-    for index, row in project_updates.iterrows():
-        formatted_update = f"""
-        <div style="background-color:#F6F5F5; padding:10px; border-radius:5px; margin-bottom:10px;">
-            <h3 style="color:#021A2A;">Employee Name: {row['Created By']}</h3>
-            <p><strong style="color:#CDDC00;">Lead Name:</strong> {row['Team_Lead']}</p>
-            <p><strong style="color:#007698;">Project Name:</strong> {row['Project_Name']}</p>
-            <p><strong style="color:#0095D3;">Project Description:</strong> {row['Project_Description']}</p>
-            <p><strong style="color:#44D7F4;">Achievements/Value Adds:</strong></p>
-            <ul style="color:#333;">
-                <li>{row['Acheivements_ValueAdds'].replace(';', '.</li>\n<li>')}</li>
-            </ul>
-            <p><strong style="color:#F9671D;">Value Add:</strong></p>
-            <ul style="color:#333;">
-                <li>{row['Value_Add'].replace(';', '.</li>\n<li>')}</li>
-            </ul>
-        </div>
+# Styled HTML output using your brand colors
+def format_summary(employee_name, lead_name, project_name, project_desc, achievements, value_add):
+    return f"""
+    <div style="background-color:#F5F5F5; padding: 20px; border-radius: 10px;">
+        <h3 style="color:#012A52;">Employee Name: {employee_name}</h3>
+        <p><strong style="color:#CDDC00;">Lead Name:</strong> {lead_name}</p>
+        <p><strong style="color:#009CDE;">Project Name:</strong> {project_name}</p>
+        <p><strong style="color:#00798B;">Project Description:</strong> {project_desc}</p>
+        <p><strong style="color:#009CDE;">Achievements/Value Adds:</strong><br>{achievements}</p>
+        <p><strong style="color:#F8971D;">Value Add:</strong><br>{value_add}</p>
+    </div>
+    <br>
+    """
+
+# Streamlit UI
+st.set_page_config(page_title="Project Summary Generator")
+st.header("QBR Project Summary Generator")
+st.subheader("Upload your QBR data in CSV format to get formatted summaries")
+
+uploaded_csv = st.file_uploader("Upload QBR CSV", type=["csv"])
+
+if uploaded_csv is not None:
+    df = pd.read_csv(uploaded_csv)
+
+    for index, row in df.iterrows():
+        combined_text = f"""
+        Employee Name: {row.get('Employee Name', '')}
+        Lead Name: {row.get('Lead Name', '')}
+        Project Name: {row.get('Project Name', '')}
+        Project Description: {row.get('Project Description', '')}
+        Achievements/Value Adds: {row.get('Achievements/Value Adds', '')}
+        Value Add: {row.get('Value Add', '')}
         """
-        formatted_updates.append(formatted_update)
-    
-    return formatted_updates
 
-def concise_project_update(uploaded_file):
-    try:
-        df = pd.read_csv(uploaded_file)
-        if df.empty:
-            st.error("The uploaded CSV file is empty. Please upload a valid file.")
-            return []
-    except pd.errors.EmptyDataError:
-        st.error("The uploaded CSV file is empty. Please upload a valid file.")
-        return []
-    
-    columns = ['Created By', 'Team_Lead', 'Project_Name', 'Project_Description', 'Acheivements_ValueAdds', 'Value_Add']
-    project_updates = df[columns]
-    
-    concise_updates = []
-    for index, row in project_updates.iterrows():
-        concise_update = f"""
-        <div style="background-color:#F6F5F5; padding:10px; border-radius:5px; margin-bottom:10px;">
-            <h3 style="color:#021A2A;">Employee Name: {row['Created By']}</h3>
-            <p><strong style="color:#CDDC00;">Lead Name:</strong> {row['Team_Lead']}</p>
-            <p><strong style="color:#007698;">Project Name:</strong> {row['Project_Name']}</p>
-            <p><strong style="color:#0095D3;">Project Description:</strong> {row['Project_Description']}</p>
-            <p><strong style="color:#44D7F4;">Achievements/Value Adds:</strong></p>
-            <ul style="color:#333;">
-                <li>{row['Acheivements_ValueAdds'].replace(';', '.</li>\n<li>')}</li>
-            </ul>
-            <p><strong style="color:#F9671D;">Value Add:</strong></p>
-            <ul style="color:#333;">
-                <li>{row['Value_Add'].replace(';', '.</li>\n<li>')}</li>
-            </ul>
-            <p><strong style="color:#007698;">Concise Insights:</strong></p>
-            <ul style="color:#333;">
-                <li>Project Name: {row['Project_Name']}</li>
-                <li>Lead Name: {row['Team_Lead']}</li>
-                <li>Key Achievements: {row['Acheivements_ValueAdds'].replace(';', ', ')}</li>
-                <li>Value Adds: {row['Value_Add'].replace(';', ', ')}</li>
-            </ul>
-        </div>
-        """
-        concise_updates.append(concise_update)
-    
-    return concise_updates
+        summary = get_project_summary(combined_text)
 
-## Streamlit App
-st.set_page_config(page_title="Document Analyser")
-st.header("Document Analyzer")
-st.subheader('This Application helps you to Analyse any document uploaded')
-uploaded_file = st.file_uploader("Upload your Document (CSV only)...", type=["csv"])
+        formatted_html = format_summary(
+            employee_name=row.get('Employee Name', 'N/A'),
+            lead_name=row.get('Lead Name', 'N/A'),
+            project_name=row.get('Project Name', 'N/A'),
+            project_desc=row.get('Project Description', 'N/A'),
+            achievements=row.get('Achievements/Value Adds', 'N/A'),
+            value_add=row.get('Value Add', 'N/A')
+        )
 
-# Set the prompt for generating concise insights
-input_prompt1 = """
-You are an experienced Project Manager, your task is to review the provided project updates and summarize them concisely. 
-Please provide meaningful insights in bullet points, highlighting key achievements and value adds.
-"""
-
-if uploaded_file is not None:
-    st.write("Document Uploaded Successfully")
-    project_updates = extract_project_updates(uploaded_file)
-    concise_updates = concise_project_update(uploaded_file)
-    st.subheader("Project Updates")
-    for update in project_updates:
-        st.markdown(update, unsafe_allow_html=True)
-    st.subheader("Concise Project Updates")
-    for update in concise_updates:
-        st.markdown(update, unsafe_allow_html=True)
-
-if st.button("Generate Insights"):
-    if uploaded_file is not None:
-        concise_updates = concise_project_update(uploaded_file)
-        if concise_updates:
-            response = get_gemini_response(concise_updates, input_prompt1)
-            st.subheader("Generated Insights")
-            st.write(response)
-        else:
-            st.write("Please upload a valid CSV file to proceed.")
+        st.markdown(formatted_html, unsafe_allow_html=True)
