@@ -25,7 +25,7 @@ def format_summary(employee_name, summary_html):
 # Generate summary using Gemini
 def get_project_summary(text):
     try:
-        model = genai.GenerativeModel('models/gemini-pro')  # Fully qualified name
+        model = genai.GenerativeModel("gemini-pro")
         prompt = (
             "Summarize this employee's QBR project in 4-5 concise bullet points using <ul><li> HTML tags. "
             "Include project name, goals, value delivered, key achievements, and tech skills used:"
