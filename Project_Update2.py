@@ -60,21 +60,25 @@ if uploaded_file is not None:
         for (employee_name, quarter), group_df in grouped:
             # Combine entries into one text
             text_chunks = []
-            for _, row in group_df.iterrows():
-                team_lead = row.get("Team_Lead", "")
-                project_name = row.get("Project_Name", "")
-                project_desc = row.get("Project_Description", "")
-                achievements = row.get("Acheivements_ValueAdds", "")
-                value_add = row.get("Value_Add", "")
-
+            # Group by project name within each employee-quarter group
+            for project_name, project_group in group_df.groupby("Project_Name"):
+                if pd.isna(project_name):
+                    continue
+            
+                descriptions = " ".join(project_group["Project_Description"].dropna().astype(str))
+                achievements = " ".join(project_group["Acheivements_ValueAdds"].dropna().astype(str))
+                values = " ".join(project_group["Value_Add"].dropna().astype(str))
+                team_leads = ", ".join(project_group["Team_Lead"].dropna().unique())
+            
                 chunk = f"""
-                Team Lead: {team_lead}
-                Project Name: {project_name}
-                Project Description: {project_desc}
+                Project: {project_name}
+                Team Lead(s): {team_leads}
+                Goal & Description: {descriptions}
                 Achievements: {achievements}
-                Value Add: {value_add}
+                Value Delivered: {values}
                 """
                 text_chunks.append(chunk)
+
 
             combined_text = "\n\n".join(text_chunks)
 
