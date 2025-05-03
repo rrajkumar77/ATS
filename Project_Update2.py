@@ -39,7 +39,7 @@ def get_project_summary(text):
 st.set_page_config(page_title="QBR Summary Generator", layout="centered")
 st.title("📊 QBR Project Summary Generator")
 
-uploaded_file = st.file_uploader("Upload the Pedro QBR CSV file", type=["csv"])
+uploaded_file = st.file_uploader("Upload the QBR CSV file", type=["csv"])
 
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
