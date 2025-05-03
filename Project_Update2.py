@@ -17,7 +17,7 @@ else:
 # Define the Gemini summarizer
 def get_project_summary(text):
     try:
-        model = genai.GenerativeModel('models/gemini-pro')  # Fully qualified path
+        model = genai.GenerativeModel('gemini-pro')  # Fully qualified path
         prompt = (
             "Summarize this employee's project experience in 4-5 concise bullet points using <ul><li> HTML tags. "
             "Include project name, responsibilities, achievements, value add, and technologies used:"
