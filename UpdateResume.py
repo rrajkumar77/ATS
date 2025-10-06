@@ -11,9 +11,9 @@ genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 # Gemini function to get a response
 def get_gemini_response(input_text):
     """
-    Generates a response from the Gemini 1.5-flash model.
+    Generates a response from the Gemini 2.0-flash model.
     """
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    model = genai.GenerativeModel('gemini-2.0-flash')
     response = model.generate_content(input_text)
     return response.text
 
